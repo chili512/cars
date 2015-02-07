@@ -1,4 +1,3 @@
-# my gitignore file
 nbproject
 ._*
 .~lock.*
@@ -11,4 +10,4 @@ composer.lock
 vendor/bin
 /vendor/
 /config/autoload/local.php
-/img/*
+*.jpg
