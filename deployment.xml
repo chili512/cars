@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><package xmlns="http://www.zend.com/server/deployment-descriptor/1.0" version="1.0">
+    <name>JonsCars</name>
+    <version>
+        <release>1.0.0</release>
+    </version>
+    <appdir>data</appdir>
+    <docroot>data/public</docroot>
+    <dependencies>
+    <required>
+      <library>
+        <name>doctrine2</name>
+        <min>2.0.0</min>
+      </library>
+    </required>
+  </dependencies>
+</package>

@@ -1,0 +1,55 @@
+<?php
+$title = 'My cars';
+$this->headTitle($title);
+?>
+
+<div class="jumbotron">
+	<h1><?php echo sprintf($this->translate('My Autos %s1978 - 2014%s'), '<span class="zf-green">', '</span>')?></h1>
+	<p>I have owned a number of cars (<?php echo $total;?>) over the last 35 years. Some have been
+		very good, some not so.
+	</p>
+</div>
+
+<p>
+	<a href="<?php echo $this->url('cars', array('action'=>'add'));?>" data-toggle="modal" data-target="#custom" class="btn btn-default"
+		title="Enter the details of a new car"><span
+		class="glyphicon glyphicon-plus"></span>&nbsp;New Car!</a>
+</p>
+<?php
+// The row
+$row = 0;
+// Where in the array
+$index = 0;
+foreach ($cars as $car) {
+    if ($row == 0) {
+        ?>
+<div class="row">
+    <?php
+    }
+    ?>    
+    <div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><?php echo $car->getModelYear().' '. $car->getMake() . ' '.$car->getModel()?></h3>
+			</div>
+			<div class="panel-body">
+				<img alt="<?php echo $car->getMake() . ' '.$car->getModel()?>"
+					src="<?php echo $this->basePath() . '/img/'.$car->getImage().'.jpg';?>"
+					title="<?php echo $car->getModelYear().' '. $car->getMake() . ' '.$car->getModel()?>" />
+			</div>
+		</div>
+	</div>   
+    <?php
+    if ($row == 2 || $index + 1 == $total) {
+        ?></div><?php
+    }
+    $row = $row == 2 ? 0 : $row + 1;
+    $index += 1;
+}
+?>
+<div class="modal fade" id="custom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="wrapper">
+        </div>
+    </div>
+</div>
