@@ -17,7 +17,8 @@ return array(
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
         ),
         'username' => '',
-        'password' => ''
+        'password' => '',
+        'dsn' => 'mysql:dbname=;host=localhost',
     ),
     'service_manager' => array(
         'factories' => array(
