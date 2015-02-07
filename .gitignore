@@ -11,4 +11,4 @@ composer.lock
 vendor/bin
 /vendor/
 /config/autoload/local.php
-/img/*
+/public/img/*
