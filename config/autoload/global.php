@@ -11,30 +11,29 @@
  * file.
  */
 return array(
-    /*'db' => array(
+    'db' => array(
         'driver' => 'Pdo',
-        'dsn' => 'mysql:dbname=zf2tutorial;host=localhost',
         'driver_options' => array(
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
         ),
-        'username' => 'jon',
-        'password' => '1ckn174!'
+        'username' => '',
+        'password' => ''
     ),
     'service_manager' => array(
         'factories' => array(
             'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory'
         )
-    ),*/
+    ),
     'doctrine' => array(
         'connection' => array(
             'orm_default' => array(
                 'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
                 'params' => array(
-                    'host' => 'localhost',
+                    'host' => '',
                     'port' => '3306',
-                    'user' => 'jon',
-                    'password' => '1ckn174!',
-                    'dbname' => 'Car'
+                    'user' => '',
+                    'password' => '',
+                    'dbname' => ''
                 )
             )
         )
