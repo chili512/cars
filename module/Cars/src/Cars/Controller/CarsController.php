@@ -12,18 +12,17 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Cars\Form\NewCarForm;
 use Cars\Models\CarTable;
-use Doctrine\ORM\EntityManager;
 use Zend\Console\Request;
 use Cars\Entity\Automobile;
 
 /**
+ * Handles requests of the format /cars
  *
  * @author jon
  *        
  */
 class CarsController extends AbstractActionController
 {
-
     /**
      * A class that uses Doctrine ORM to interact with the database
      *
@@ -35,15 +34,17 @@ class CarsController extends AbstractActionController
      * Constructor
      */
     function __construct()
-    {}
+    {
+        // Constructor magic method
+    }
 
     /**
-     * (non-PHPdoc)
+     * (non-PHPdoc) Index method displays a listing of cars
      *
      * @see \Zend\Mvc\Controller\AbstractActionController::indexAction()
      */
     public function indexAction()
-    {        
+    {
         $this->setDataAccess();
         
         $allcars = $this->carTable->retrieveAll();
@@ -82,7 +83,8 @@ class CarsController extends AbstractActionController
     }
 
     /**
-     *
+     * Processes the POST for saving a new car. Returns an updated list of cars
+     * 
      * @return \Zend\View\Model\ViewModel
      */
     public function saveAction()
@@ -116,13 +118,24 @@ class CarsController extends AbstractActionController
         return $this->redirect()->toRoute('cars');
     }
 
+    /**
+     * Will handle the editing of a car
+     */
     public function editAction()
-    {}
-
-    public function deleteAction()
-    {}
+    {
+        // This is yet to be worked on
+    }
 
     /**
+     * Will likely not be used
+     */
+    public function deleteAction()
+    {
+        // This is unlikely to ever be done
+    }
+
+    /**
+     * This function handles the retrieval of the data access layer
      *
      * @return void
      */
