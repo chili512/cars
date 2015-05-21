@@ -4,8 +4,8 @@ $this->headTitle($title);
 ?>
 
 <div class="jumbotron">
-	<h1><?php echo sprintf($this->translate('My Autos %s1978 - 2014%s'), '<span class="zf-green">', '</span>')?></h1>
-	<p>I have owned a number of cars (<?php echo $total;?>) over the last 35 years. Some have been
+	<h1><?php echo sprintf($this->translate('My Autos %s%d - %d%s'), '<span class="zf-green">',$firstYear,$currentyear, '</span>')?></h1>
+	<p>I have owned a number of cars (<?php echo $total;?>) over the last <?php echo $years;?> years. Some have been
 		very good, some not so.
 	</p>
 </div>

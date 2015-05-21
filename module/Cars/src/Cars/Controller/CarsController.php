@@ -23,6 +23,23 @@ use Cars\Entity\Automobile;
  */
 class CarsController extends AbstractActionController
 {
+
+    /**
+     * The number of years
+     *
+     * @var
+     *
+     */
+    private $_years;
+
+    /**
+     * The current year
+     *
+     * @var
+     *
+     */
+    private $_currentYear;
+
     /**
      * A class that uses Doctrine ORM to interact with the database
      *
@@ -31,11 +48,20 @@ class CarsController extends AbstractActionController
     private $carTable;
 
     /**
+     * When I got my first car
+     *
+     * @var unknown
+     */
+    private $_firstYear = 1979;
+
+    /**
      * Constructor
      */
     function __construct()
     {
         // Constructor magic method
+        $this->_currentYear = date('Y');
+        $this->_years = $this->_currentYear - $this->_firstYear;
     }
 
     /**
@@ -52,7 +78,10 @@ class CarsController extends AbstractActionController
         
         return new ViewModel(array(
             'cars' => $allcars,
-            'total' => $total
+            'total' => $total,
+            'years' => $this->_years,
+            'currentyear' => $this->_currentYear,
+            'firstYear' => $this->_firstYear
         ));
     }
 
@@ -83,8 +112,9 @@ class CarsController extends AbstractActionController
     }
 
     /**
-     * Processes the POST for saving a new car. Returns an updated list of cars
-     * 
+     * Processes the POST for saving a new car.
+     * Returns an updated list of cars
+     *
      * @return \Zend\View\Model\ViewModel
      */
     public function saveAction()
