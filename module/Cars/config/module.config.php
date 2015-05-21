@@ -7,7 +7,8 @@ namespace Cars;
 return array( // Note the plurality
     'controllers' => array(
         'invokables' => array(
-            'Cars\Controller\Cars' => 'Cars\Controller\CarsController'
+            'Cars\Controller\Cars' => 'Cars\Controller\CarsController',
+            'Cars\Controller\Service' => 'Cars\Controller\ServiceController'
         )
     ),
     'router' => array(
@@ -23,6 +24,40 @@ return array( // Note the plurality
                     'defaults' => array(
                         '__NAMESPACE__' => 'Cars\Controller',
                         'controller' => 'Cars',
+                        'action' => 'index'
+                    )
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    
+                    // This route is a sane default when developing a module;
+                    // as you solidify the routes for your module, however,
+                    // you may want to remove it and replace it with more
+                    // specific routes.
+                    'default' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/[:controller[/:action]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*'
+                            ),
+                            'defaults' => array()
+                        )
+                    )
+                )
+            ),
+            'service' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/service[/][:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Cars\Controller',
+                        'controller' => 'Service',
                         'action' => 'index'
                     )
                 ),
@@ -69,5 +104,4 @@ return array( // Note the plurality
             )
         )
     )
-)
-;
+);
