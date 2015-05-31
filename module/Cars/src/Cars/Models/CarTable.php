@@ -161,6 +161,18 @@ class CarTable
         
         return $id;
     }
+    
+    /**
+     * Retrieve a specific automobile by its primary key
+     * 
+     * @param unknown $id
+     */
+    public function getAutomobile($id){
+        
+        $data = $this->em->find('Cars\Entity\CarDetails', $id);
+        
+        return $data;
+    }
 }
 
 ?>

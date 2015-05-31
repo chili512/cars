@@ -12,7 +12,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Cars\Form\NewCarForm;
 use Cars\Models\CarTable;
-use Zend\Console\Request;
 use Cars\Entity\Automobile;
 
 /**
@@ -24,21 +23,11 @@ use Cars\Entity\Automobile;
 class CarsController extends AbstractActionController
 {
 
-    /**
-     * The number of years
-     *
-     * @var
-     *
-     */
-    private $_years;
+    private $_yearsSinceFirstCar;
 
-    /**
-     * The current year
-     *
-     * @var
-     *
-     */
     private $_currentYear;
+
+    private $_firstYear = 1979;
 
     /**
      * A class that uses Doctrine ORM to interact with the database
@@ -48,20 +37,13 @@ class CarsController extends AbstractActionController
     private $carTable;
 
     /**
-     * When I got my first car
-     *
-     * @var unknown
-     */
-    private $_firstYear = 1979;
-
-    /**
-     * Constructor
+     * Constructor for the CarsController class.
+     * A PHP magic method
      */
     function __construct()
     {
-        // Constructor magic method
         $this->_currentYear = date('Y');
-        $this->_years = $this->_currentYear - $this->_firstYear;
+        $this->_yearsSinceFirstCar = $this->_currentYear - $this->_firstYear;
     }
 
     /**
@@ -79,14 +61,14 @@ class CarsController extends AbstractActionController
         return new ViewModel(array(
             'cars' => $allcars,
             'total' => $total,
-            'years' => $this->_years,
+            'years' => $this->_yearsSinceFirstCar,
             'currentyear' => $this->_currentYear,
             'firstYear' => $this->_firstYear
         ));
     }
 
     /**
-     * Opens a new form to add a car
+     * Opens a modal form to add a new car
      *
      * @return \Zend\View\Model\ViewModel
      */
@@ -94,14 +76,12 @@ class CarsController extends AbstractActionController
     {
         $this->setDataAccess();
         
-        // Create the required collections to be used in the form
         $transmissions = $this->carTable->transmissions();
         $bodyTypes = $this->carTable->bodyTypes();
         $makes = $this->carTable->manufacturers();
         
         $form = new NewCarForm($makes, $transmissions, $bodyTypes);
         
-        // Declare the view object
         $view = new ViewModel(array(
             'form' => $form
         ));
@@ -120,13 +100,9 @@ class CarsController extends AbstractActionController
     public function saveAction()
     {
         $request = $this->getRequest();
-        if ($request instanceof Request) {
-            $isPost = true;
-        }
         if ($request->isPost()) {
             
             $this->setDataAccess();
-            $id = $this->carTable->getModelId($_POST['model']);
             
             $auto = new Automobile();
             $auto->BodyType = $_POST['bodytype'];
@@ -136,13 +112,13 @@ class CarsController extends AbstractActionController
             $auto->Image = $_POST['image'];
             $auto->License = $_POST['license'];
             $auto->Make = $_POST['make'];
-            $auto->Model = $id;
+            $auto->Model = $this->generateModelId($_POST['model']);
             $auto->ModelYear = $_POST['modelyear'];
             $dt = new \DateTime($_POST['purchased']);
             $auto->Purchased = $dt;
             $auto->Transmission = $_POST['transmission'];
             
-            $this->carTable->save($auto);
+            $this->addNewCarToDatastore($auto);
         }
         
         return $this->redirect()->toRoute('cars');
@@ -162,6 +138,57 @@ class CarsController extends AbstractActionController
     public function deleteAction()
     {
         // This is unlikely to ever be done
+    }
+
+    /**
+     * Retrieves information about the selected car. In ZF 2 use params collection to extract the querystring parameters 
+     *
+     * @param int $id            
+     */
+    public function retrieveAction()
+    {
+        $id = $this->params('id');
+        if ($id == null) {
+            return $this->redirect()->toRoute('cars');
+        }
+        
+        $this->setDataAccess();
+        
+        $car = $this->carTable->getAutomobile($id);
+        
+        $view = new ViewModel(array(
+            'car' => $car
+        ));
+        return $view;
+    }
+
+    /**
+     * Checks the datastore to determine what id the supplied model name represents.
+     * Returns the ID
+     *
+     * @param string $modelName            
+     * @return integer
+     */
+    private function generateModelId($modelName)
+    {
+        $id = $this->carTable->getModelId($_POST['model']);
+        return $id;
+    }
+
+    /**
+     * Persists to the database
+     *
+     * @param Automobile $auto            
+     */
+    private function addNewCarToDatastore(Automobile $auto)
+    {
+        $message = 'Successfully saved record';
+        try {
+            $this->carTable->save($auto);
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+        }
+        return $message;
     }
 
     /**
