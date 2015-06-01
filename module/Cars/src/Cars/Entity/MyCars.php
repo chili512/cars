@@ -12,8 +12,7 @@ class MyCars
      */
     function __construct()
     {
-        // $this->em = $em;
-        echo 'Contr';
+
     }
 
     /**
@@ -28,7 +27,6 @@ class MyCars
      */
     public function retrieveAll()
     {
-        echo 'found';
         $allcars = $this->em->getRepository('Cars\Entity\Overview')->findAll();
         return $allcars;
     }

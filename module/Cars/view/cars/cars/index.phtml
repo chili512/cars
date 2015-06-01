@@ -33,9 +33,10 @@ foreach ($cars as $car) {
 				<h3 class="panel-title"><?php echo $car->getModelYear().' '. $car->getMake() . ' '.$car->getModel()?></h3>
 			</div>
 			<div class="panel-body">
+			<a href="<?php echo $this->url('cars',array('action'=>'retrieve', 'id'=>$car->getId()));?>" title="View details about this car">
 				<img alt="<?php echo $car->getMake() . ' '.$car->getModel()?>"
 					src="<?php echo $this->basePath() . '/img/'.$car->getImage().'.jpg';?>"
-					title="<?php echo $car->getModelYear().' '. $car->getMake() . ' '.$car->getModel()?>" />
+					title="<?php echo $car->getModelYear().' '. $car->getMake() . ' '.$car->getModel()?>" /></a>
 			</div>
 		</div>
 	</div>   
