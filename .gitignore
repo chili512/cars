@@ -8,7 +8,8 @@ nbproject
 .project
 .settings
 composer.lock
-vendor/bin
-/vendor/
+/vendor*
+*vendor*
+*bin*
 /config/autoload/local.php
 /public/img/*
