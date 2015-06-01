@@ -1,18 +1,47 @@
-<h1><?php echo $this->car->getMake(). ' '.$this->car->getModel()?></h1>
-<div>
-	<img
-		src="<?php echo $this->basePath() . '/img/'.$car->getImage().'.jpg';?>"
-		alt="<?php echo $car->getMake() . ' '.$car->getModel()?>"
-		title="<?php echo $car->getModelYear().' '. $car->getMake() . ' '.$car->getModel()?>" />
+<?php $this->plugin('currencyformat')->setCurrencyCode('USD')->setLocale('en-US');?>
+<h1><?php echo $this->car->getModelYear().' '. $this->car->getMake(). ' '.$this->car->getModel()?></h1>
+<div class="row">
+	<div class="col-md-4">
+		<img
+			src="<?php echo $this->basePath() . '/img/'.$car->getImage().'.jpg';?>"
+			alt="<?php echo $car->getMake() . ' '.$car->getModel()?>"
+			title="<?php echo $car->getModelYear().' '. $car->getMake() . ' '.$car->getModel()?>" />
+	</div>
+	<div class="col-md-8">
+		<p>
+			<strong>License</strong> <?php echo $this->car->getLicense();?></p>
+		<p>
+			<strong>Engine</strong> <?php echo $this->car->getEngineSize();?>lt</p>
+		<p>
+			<strong>Transmission</strong> <?php echo $this->car->getTransmission();?></p>
+		<p>
+			<strong>Cost</strong> <?php echo $this->currencyFormat($this->car->getCost());?></p>
+		<p>
+			<strong>Purchased</strong> <?php echo $this->car->getPurchased()->format('d-M-Y');?></p>
+	</div>
 </div>
-<?php
-echo $this->car->getLicense();
-echo $this->car->getMake();
-echo $this->car->getModel();
-echo $this->car->getCost();
-echo $this->car->getEngineSize();
-echo $this->car->getModelYear();
-echo $this->car->getTransmission();
-echo $this->car->getId();
-echo $this->car->getImage();
 
+<h3>Service History</h3>
+<div class="row">
+	<div class="col-md-12">
+		<a
+			href="<?php echo $this->url('service',array('action'=>'add', 'id'=>$car->getId()));?>"
+			class="btn btn-default" title="Add a servicerecord"> <span
+			class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Service
+		</a>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		
+
+<?php if($this->service == null){?>
+	
+	<p>
+			<strong>No service history</strong>
+		</p>
+<?php }else{?>
+    
+<?php }?>	
+</div>
+</div>
