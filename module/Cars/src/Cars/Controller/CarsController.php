@@ -162,6 +162,7 @@ class CarsController extends AbstractActionController
             'car' => $car,
             'service' => null
         ));
+        
         return $view;
     }
 
