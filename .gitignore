@@ -1,5 +1,5 @@
 # my gitignore file
-vendor*
+/vendor*
 nbproject
 ._*
 .~lock*
