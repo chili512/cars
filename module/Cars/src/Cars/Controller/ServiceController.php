@@ -21,7 +21,7 @@ class ServiceController extends AbstractActionController
     public function indexAction()
     {
         // TODO Auto-generated ServiceController::indexAction() default action
-        return new ViewModel();
+        return new ViewModel(array('history'=>null));
     }
 
     public function addAction()

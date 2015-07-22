@@ -139,9 +139,9 @@ class CarDetails
     }
 
     public function getCost()
-    {
+    {        
         return $this->cost;
-    }
+    }       
 
     public function getModel()
     {

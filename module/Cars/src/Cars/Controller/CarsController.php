@@ -13,6 +13,7 @@ use Zend\View\Model\ViewModel;
 use Cars\Form\NewCarForm;
 use Cars\Models\CarTable;
 use Cars\Entity\Automobile;
+use Zend\I18n\View\Helper\CurrencyFormat;
 
 /**
  * Handles requests of the format /cars
@@ -141,7 +142,8 @@ class CarsController extends AbstractActionController
     }
 
     /**
-     * Retrieves information about the selected car. In ZF 2 use params collection to extract the querystring parameters 
+     * Retrieves information about the selected car.
+     * In ZF 2 use params collection to extract the querystring parameters
      *
      * @param int $id            
      */
@@ -157,8 +159,10 @@ class CarsController extends AbstractActionController
         $car = $this->carTable->getAutomobile($id);
         
         $view = new ViewModel(array(
-            'car' => $car
+            'car' => $car,
+            'service' => null
         ));
+        
         return $view;
     }
 
