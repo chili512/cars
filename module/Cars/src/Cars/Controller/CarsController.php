@@ -189,7 +189,7 @@ class CarsController extends AbstractActionController
         $message = 'Successfully saved record';
         try {
             $this->carTable->save($auto);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $message = $e->getMessage();
         }
         return $message;

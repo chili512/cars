@@ -24,19 +24,24 @@
 <h3>Service History</h3>
 <div class="row">
 	<div class="col-md-12">
-		<a
+		<a data-toggle="modal" data-target="#custom"
 			href="<?php echo $this->url('service',array('action'=>'add', 'id'=>$car->getId()));?>"
 			class="btn btn-default" title="Add a servicerecord"> <span
 			class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Service
 		</a>
 	</div>
 </div>
+
+<div class="modal fade" id="custom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="wrapper">
+        </div>
+    </div>
+</div>
+
 <div class="row">
 	<div class="col-md-12">
-		
-
-<?php if($this->service == null){?>
-	
+<?php if($this->service == null){?>	
 	<p>
 			<strong>No service history</strong>
 		</p>

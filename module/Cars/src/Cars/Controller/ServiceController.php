@@ -39,4 +39,18 @@ class ServiceController extends AbstractActionController
             'history' => $serviceHistory
         ));
     }
+
+    public function addAction()
+    {
+        $id = $this->params('id');
+        if ($id == null) {
+            return $this->redirect()->toRoute('cars');
+        }
+
+        $view = new \Zend\View\Model\ViewModel(array(
+            'car' => $id
+        ));
+        $view->setTerminal(true);
+        return $view;
+    }
 }
