@@ -137,17 +137,17 @@ class Automobile implements InputFilterAwareInterface
      */
     public function exchangeArray($data = array())
     {
-        $auto->BodyType = $data['bodytype'];
-        $auto->Cost = $data['cost'];
-        $auto->Cylinders = $data['cylinders'];
-        $auto->EngineSize = $data['enginesize'];
-        $auto->Image = $data['image'];
-        $auto->License = $data['license'];
-        $auto->Make = $data['make'];
-        $auto->Model = $data['model'];
-        $auto->ModelYear = $data['modelyear'];
-        $auto->Purchased = $data['purchased'];
-        $auto->Transmission = $data['transmission'];
+        $this->BodyType = $data['bodytype'];
+        $this->Cost = $data['cost'];
+        $this->Cylinders = $data['cylinders'];
+        $this->EngineSize = $data['enginesize'];
+        $this->Image = $data['image'];
+        $this->License = $data['license'];
+        $this->Make = $data['make'];
+        $this->Model = $data['model'];
+        $this->ModelYear = $data['modelyear'];
+        $this->Purchased = $data['purchased'];
+        $this->Transmission = $data['transmission'];
     }
     
     /*
