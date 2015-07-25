@@ -13,6 +13,7 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Cars\Models\CarTable;
+use Cars\Models\ServiceTable;
 
 /**
  *
@@ -74,14 +75,17 @@ class Module implements AutoloaderProviderInterface, ServiceProviderInterface
             'abstract_factories' => array(),
             'aliases' => array(),
             'factories' => array(
-                'Cars\Models\CarTable' => function ($sm)
-                {
+                'Cars\Models\CarTable' => function ($sm) {
                     $em = $sm->get('CarDoctrine');
                     $table = new CarTable($em);
                     return $table;
                 },
-                'CarDoctrine' => function ($sm)
-                {
+                'Cars\Models\ServiceTable' => function ($sm) {
+                    $em = $sm->get('CarDoctrine');
+                    $table = new ServiceTable($em);
+                    return $table;
+                },
+                'CarDoctrine' => function ($sm) {
                     $em = $sm->get('doctrine.entitymanager.orm_default');
                     return $em;
                 }
