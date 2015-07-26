@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\IntegerType;
 
 class ServiceTable
 {
+
     /**
      *
      * @var EntityManager
@@ -22,24 +23,26 @@ class ServiceTable
     {
         $this->em->close();
     }
-    
+
     /**
      * Persist to the database
-     * 
-     * @param ServiceHistory $serviceHistory
+     *
+     * @param ServiceHistory $serviceHistory            
      */
-    function add(ServiceHistory $serviceHistory){
-                
+    function add(ServiceHistory $serviceHistory)
+    {
         $this->em->beginTransaction();
         $this->em->persist($serviceHistory);
         $this->em->flush($serviceHistory);
         $this->em->commit();
     }
-    
-    function retrieveHistorySingleCar(IntegerType $id){
-        
-        $query = $this->em->createQuery('SELECT sh.Rid, sh.Date, sh.CarId, sh.Cost, sh.Comments, sh.InvoiceNumber, sh.Odometer, s.SupplierId, s.Name  FROM  ServiceHistory sh INNER JOIN Suppliers s ON sh.SupplierId = s.SupplierId  WHERE sh.CarId = :car');
-        $query->setParameter('car', $id);
+
+    function retrieveHistorySingleCar($id)
+    {
+        $query = $this->em->createQuery('SELECT sh.rid, sh.date, sh.carid, sh.comments, sh.odometer, s.name, sh.cost
+            FROM  Cars\Entity\ServiceHistory sh JOIN sh.suppliers s
+            WHERE sh.carid = :car');
+        $query->setParameter('car', $id, IntegerType::INTEGER);
         $serviceHistory = $query->getResult();
         return $serviceHistory;
     }

@@ -67,3 +67,16 @@ input:required:invalid, input:focus:invalid{
 input:required:valid{
 	color:#000;
 }
+.table > thead > tr > th{
+	background-color: #525ef8;color:#333;
+}
+.table > thead > tr > th {
+    background-color: #2a338f;
+    border: 0;
+    color: #fff;
+}
+
+.table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border-top: 0;
+    border-bottom: 1px solid #ddd;
+}

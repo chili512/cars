@@ -1,10 +1,31 @@
+<?php $this->plugin('currencyformat')->setCurrencyCode('USD')->setLocale('en-US');?>
 <h1>Service History</h1>
 <div class="row">
-<?php if($this->serviceHistory==null){?>
+<?php if($this->count == 0){?>
 <p>
 		<strong>No Service History Records</strong>
 <?php }else{?>
-<p>ok</p>
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Supplier</th>
+				<th>Cost</th>
+				<th>Comments</th>
+				<th>Odo</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php foreach ($this->history as $h){?>
+		<tr>
+				<td><?php echo $h['date']->format('d-M-Y');?></td>
+				<td><?php echo $h['name'];?></td>
+				<td><?php echo $this->currencyFormat($h['cost']);?></td>
+				<td><?php echo $h['comments'];?></td>
+				<td><?php echo $h['odometer'];?></td>
+			</tr>
+		<?php }?>
+		</tbody>
+	</table>
 <?php }?>
-
 </div>

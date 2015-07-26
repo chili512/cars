@@ -2,6 +2,8 @@
 namespace Cars\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter as InputFilter;
@@ -12,15 +14,7 @@ use Zend\InputFilter\InputFilter as InputFilter;
  *        
  *         @ORM\Entity
  *         @ORM\Table(name="ServiceHistory")
- * @property integer $rid
- * @property integer $supplierid
- * @property date $date
- * @property decimal $cost
- * @property string $comments
- * @property string $invoicenumber
- * @property integer $odometer
- * @property integer $carid
- *
+ *        
  */
 class ServiceHistory implements InputFilterAwareInterface
 {
@@ -28,58 +22,69 @@ class ServiceHistory implements InputFilterAwareInterface
     protected $inputFilter;
 
     /**
-     * @ORM\Column(type="integer")
      *
-     * @var \Doctrine\DBAL\Types\IntegerType
+     * @var int 
+     * 
+     * @ORM\Id
+     * @ORM\Column(type="integer", name="rid", nullable=false)
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $rid;
 
     /**
-     * @ORM\Column(type="integer")
      *
-     * @var \Doctrine\DBAL\Types\IntegerType
+     * @var int @ORM\Column(type="integer")
      */
     protected $supplierid;
 
     /**
+     *
+     * @var Suppliers 
+     * 
+     * @ManyToOne(targetEntity="Suppliers", inversedBy="servicehistorys")
+     * @JoinColumn(name="supplierId", referencedColumnName="supplierId") *
+     */
+    protected $suppliers;
+
+    /**
      * @ORM\Column(type="integer")
      *
-     * @var \Doctrine\DBAL\Types\IntegerType
+     * @var int
      */
     protected $carid;
 
     /**
      * @ORM\Column(type="date")
      *
-     * @var \Doctrine\DBAL\Types\DateType
+     * @var date
      */
     protected $date;
 
     /**
      * @ORM\Column(type="decimal")
      *
-     * @var \Doctrine\DBAL\Types\DecimalType
+     * @var decimal
      */
     protected $cost;
 
     /**
-     * ORM\Column(type="string")
+     * @ORM\Column(type="string")
      *
-     * @var \Doctrine\DBAL\Types\StringType
+     * @var string
      */
     protected $comments;
 
     /**
-     * ORM\Column(type="string")
+     * @ORM\Column(type="string")
      *
-     * @var \Doctrine\DBAL\Types\StringType
+     * @var string
      */
     protected $invoicenumber;
 
     /**
      * @ORM\Column(type="integer")
      *
-     * @var \Doctrine\DBAL\Types\IntegerType
+     * @var int
      */
     protected $odometer;
 
