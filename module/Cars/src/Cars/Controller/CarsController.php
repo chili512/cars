@@ -37,6 +37,8 @@ class CarsController extends AbstractActionController
      */
     private $carTable;
 
+    private $serviceTable;
+
     /**
      * Constructor for the CarsController class.
      * A PHP magic method
@@ -157,10 +159,16 @@ class CarsController extends AbstractActionController
         $this->setDataAccess();
         
         $car = $this->carTable->getAutomobile($id);
+        $sm = $this->getServiceLocator();
+        $service = $sm->get('Cars\Models\ServiceTable');
+        
+        $history = $service->retrieveHistorySingleCar($id);
+        $count = count($history);
         
         $view = new ViewModel(array(
             'car' => $car,
-            'service' => null
+            'service' => $history,
+            'count' => $count
         ));
         
         return $view;

@@ -3,12 +3,17 @@
   "description" : "Skeleton Application for ZF2",
   "require" : {
     "php" : ">=5.3.3",
-    "zendframework/zendframework" : "2.3.*",
-    "doctrine/doctrine-orm-module" : "=0.8.0",
-    "doctrine/data-fixtures" : "=v1.0.0",
-    "zendframework/zend-developer-tools": "dev-master"
+    "zendframework/zendframework" : "2.*",
+    "doctrine/doctrine-orm-module" : ">0.8.0",
+    "doctrine/data-fixtures" : ">v1.0.0",
+    "zendframework/zend-developer-tools" : "dev-master"
   },
-  "keywords" : [ "framework", "zf2" ],
   "license" : "BSD-3-Clause",
-  "homepage" : "http://framework.zend.com/"
+  "keywords" : [ "framework", "zf2" ],
+  "homepage" : "http://framework.zend.com/",
+  "config": {
+    "github-oauth": {
+      "github.com": "cb514d7cc0f52e0aad1636206c5a18fd1bfd09ef"
+    }
+  }
 }
