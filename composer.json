@@ -10,10 +10,5 @@
   },
   "license" : "BSD-3-Clause",
   "keywords" : [ "framework", "zf2" ],
-  "homepage" : "http://framework.zend.com/",
-  "config": {
-    "github-oauth": {
-      "github.com": "cb514d7cc0f52e0aad1636206c5a18fd1bfd09ef"
-    }
-  }
+  "homepage" : "http://framework.zend.com/"
 }
