@@ -28,7 +28,7 @@ class Module implements AutoloaderProviderInterface
 
     /**
      * (non-PHPdoc)
-     * 
+     *
      * @see \Zend\ModuleManager\Feature\AutoloaderProviderInterface::getAutoloaderConfig()
      */
     public function getAutoloaderConfig()
@@ -48,7 +48,6 @@ class Module implements AutoloaderProviderInterface
     }
 
     /**
-     * 
      */
     public function getConfig()
     {
@@ -56,8 +55,8 @@ class Module implements AutoloaderProviderInterface
     }
 
     /**
-     * 
-     * @param MvcEvent $e
+     *
+     * @param MvcEvent $e            
      */
     public function onBootstrap(MvcEvent $e)
     {
@@ -77,20 +76,18 @@ class Module implements AutoloaderProviderInterface
     {
         return array(
             'factories' => array(
-                'Album\Model\AlbumTable' => function ($sm)
-                {
+                'Album\Model\AlbumTable' => function ($sm) {
                     $tableGateway = $sm->get('AlbumTableGateway');
                     $table = new AlbumTable($tableGateway);
                     return $table;
-                },
-                'AlbumTableGateway' => function ($sm)
-                {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Album());
-                    return new TableGateway('album', $dbAdapter, null, $resultSetPrototype);
                 }
-            )
+            ),
+            'AlbumTableGateway' => function ($sm) {
+                $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                $resultSetPrototype = new ResultSet();
+                $resultSetPrototype->setArrayObjectPrototype(new Album());
+                return new TableGateway('album', $dbAdapter, null, $resultSetPrototype);
+            }        
         );
     }
 }
