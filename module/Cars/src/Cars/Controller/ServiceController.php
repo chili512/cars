@@ -3,6 +3,7 @@ namespace Cars\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Cars\Form\ServiceRecordForm;
 
 /**
  * ServiceController
@@ -16,13 +17,13 @@ class ServiceController extends AbstractActionController
 {
 
     private $serviceTable;
-    
+
     private function setDataAccess()
     {
         $sm = $this->getServiceLocator();
         $this->serviceTable = $sm->get('Cars\Models\ServiceTable');
     }
-    
+
     /**
      * The default action - show the home page
      */
@@ -37,7 +38,8 @@ class ServiceController extends AbstractActionController
         
         // TODO Auto-generated ServiceController::indexAction() default action
         return new ViewModel(array(
-            'history' => $serviceHistory, 'count'=>$count
+            'history' => $serviceHistory,
+            'count' => $count
         ));
     }
 
@@ -47,11 +49,18 @@ class ServiceController extends AbstractActionController
         if ($id == null) {
             return $this->redirect()->toRoute('cars');
         }
-
+        
+        $form = new ServiceRecordForm($id, array(
+            '1' => 'Supplier1',
+            '2' => 'Supplier2'
+        ));
+        
         $view = new \Zend\View\Model\ViewModel(array(
-            'car' => $id
+            'car' => $id,
+            'form' => $form
         ));
         $view->setTerminal(true);
+        
         return $view;
     }
 }
