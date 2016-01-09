@@ -4,6 +4,7 @@ namespace Cars\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Cars\Form\ServiceRecordForm;
+use Cars\Entity\ServiceHistory;
 
 /**
  * ServiceController
@@ -62,5 +63,30 @@ class ServiceController extends AbstractActionController
         $view->setTerminal(true);
         
         return $view;
+    }
+
+    public function saveAction()
+    {
+        $this->setDataAccess();
+        
+        $serviceHistory = new ServiceHistory();
+        $serviceHistory->populate(array(
+            'supplierid' => $_POST['supplierid'],
+            'date' => $_POST['date'],
+            'cost' => $_POST['cost'],
+            'invoicenumber' => $_POST['invoicenumber'],
+            'odometer' => $_POST['odometer'],
+            'comments' => $_POST['comments'],
+            'carid' => $_POST['carId'],
+            'data' => 0
+        ));
+        
+        $this->serviceTable->add($serviceHistory);
+        
+        $this->redirect()->toRoute('retrieve', array(
+            'action' => 'retrieve',
+            'controller' => 'cars',
+            'id' => $_POST['carId']
+        ));
     }
 }

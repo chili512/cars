@@ -13,7 +13,6 @@ use Zend\View\Model\ViewModel;
 use Cars\Form\NewCarForm;
 use Cars\Models\CarTable;
 use Cars\Entity\Automobile;
-use Zend\I18n\View\Helper\CurrencyFormat;
 
 /**
  * Handles requests of the format /cars

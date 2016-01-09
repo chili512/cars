@@ -98,8 +98,12 @@ echo $this->form()->openTag($form);
 </section>
 <script type="text/javascript">
 $(document).ready(function(){
+	var now = new Date();
 	$('#purchased').datepicker({
-		dateFormat:'dd/mm/yy'
+		'format': 'yyyy/MM/dd',
+    	'default': now,
+    	'max': now,
+    	culture: 'en-AU' 
 	});
 });
 				</script>

@@ -14,7 +14,6 @@ class ServiceRecordForm extends Form
         $this->setAttribute('method', 'post')
             ->setAttribute('enctype', 'multipart/form-data')
             ->setAttribute('class', 'form-horizontal')
-            ->setAttribute('action', 'add')
             ->setAttribute('id', $rand)
             ->setAttribute('role', 'form');
         

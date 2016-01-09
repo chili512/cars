@@ -9,6 +9,7 @@
 	<div class="modal-body">
 
 		<?php $form = $this->form;?>
+		<?php $form->setAttribute('action', $this->url('service',array('controller'=>'service', 'action'=>'save')));?>
 		<?php $form->prepare();?>
 		<?php echo $this->form()->openTag($form);?>
 		
@@ -51,6 +52,7 @@
 				<span class="glyphicon glyphicon-save"></span>&nbsp;Save
 			</button>
 			<input type="hidden" name="car" value="<?php echo $this->car;?>" />
+			<?php echo $this->formelement($form->get('carId'))?>
 		</div>
 		
 		<?php echo $this->form()->closeTag(); ?>
@@ -58,8 +60,12 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
+	var now = new Date();
 	$('#servicedate').datepicker({
-		dateFormat:'dd/mm/yy'
+		'format': 'yyyy/MM/dd',
+    	'default': now,
+    	'max': now,
+    	culture: 'en-AU'    	    	
 	});
 });
-				</script>
+</script>
