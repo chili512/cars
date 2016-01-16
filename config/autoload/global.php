@@ -18,7 +18,7 @@ return array(
         ),
         'username' => '',
         'password' => '',
-        'dsn' => 'mysql:dbname=;host=localhost',
+        'dsn' => 'mysql:dbname=;host=localhost'
     ),
     'service_manager' => array(
         'factories' => array(

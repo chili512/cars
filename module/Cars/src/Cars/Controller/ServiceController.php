@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Cars\Form\ServiceRecordForm;
 use Cars\Entity\ServiceHistory;
+use Cars\Entity\Suppliers;
 
 /**
  * ServiceController
@@ -51,10 +52,10 @@ class ServiceController extends AbstractActionController
             return $this->redirect()->toRoute('cars');
         }
         
-        $form = new ServiceRecordForm($id, array(
-            '1' => 'Supplier1',
-            '2' => 'Supplier2'
-        ));
+        $this->setDataAccess();
+        $suppliers = $this->serviceTable->retrieveSuppliers();
+        
+        $form = new ServiceRecordForm($id, $suppliers);
         
         $view = new \Zend\View\Model\ViewModel(array(
             'car' => $id,
@@ -69,24 +70,29 @@ class ServiceController extends AbstractActionController
     {
         $this->setDataAccess();
         
+        $date = new \DateTime($_POST['date']);
+        $supplierId = (int) $_POST['supplierid'];
+        $carId = (int) $_POST['carId'];
+        $comments = $_POST['comments'];
+        $odometer = (int) $_POST['odometer'];
+        $cost = (float) $_POST['cost'];
+        $invoiceNumber = $_POST['invoicenumber'];
+        
         $serviceHistory = new ServiceHistory();
-        $serviceHistory->populate(array(
-            'supplierid' => $_POST['supplierid'],
-            'date' => $_POST['date'],
-            'cost' => $_POST['cost'],
-            'invoicenumber' => $_POST['invoicenumber'],
-            'odometer' => $_POST['odometer'],
-            'comments' => $_POST['comments'],
-            'carid' => $_POST['carId'],
-            'data' => 0
-        ));
+        $serviceHistory->setCarId($carId);
+        $serviceHistory->setComments($comments);
+        $serviceHistory->setCost($cost);
+        $serviceHistory->setDate($date);
+        $serviceHistory->setInvoiceNumber($invoiceNumber);
+        $serviceHistory->setOdometer($odometer);
         
-        $this->serviceTable->add($serviceHistory);
+        $this->serviceTable->add($serviceHistory, $supplierId);
         
-        $this->redirect()->toRoute('retrieve', array(
+        $url = 'cars/retrieve/' . $carId;
+        
+        $this->redirect()->toRoute('cars', array(
             'action' => 'retrieve',
-            'controller' => 'cars',
-            'id' => $_POST['carId']
+            'id' => $carId
         ));
     }
 }

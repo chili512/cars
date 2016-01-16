@@ -51,7 +51,6 @@
 			<button type="submit" class="btn btn-primary" title="Save changes">
 				<span class="glyphicon glyphicon-save"></span>&nbsp;Save
 			</button>
-			<input type="hidden" name="car" value="<?php echo $this->car;?>" />
 			<?php echo $this->formelement($form->get('carId'))?>
 		</div>
 		
@@ -62,7 +61,7 @@
 $(document).ready(function(){
 	var now = new Date();
 	$('#servicedate').datepicker({
-		'format': 'yyyy/MM/dd',
+		'format': 'yyyy/mm/dd',
     	'default': now,
     	'max': now,
     	culture: 'en-AU'    	    	

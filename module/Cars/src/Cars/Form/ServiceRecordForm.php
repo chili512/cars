@@ -20,7 +20,10 @@ class ServiceRecordForm extends Form
         $this->add(array(
             'name' => 'carId',
             'type' => 'Zend\Form\Element\Hidden',
-            'value' => $carId
+            'attributes' => array(
+                'value' => $carId,
+                'id' => 'cardId'
+            )
         ));
         
         $this->add(array(
@@ -42,15 +45,12 @@ class ServiceRecordForm extends Form
             'name' => 'cost',
             'type' => 'Zend\Form\Element\Text',
             'attributes' => array(
-                'type' => 'number',
+                'type' => 'text',
                 'maxlength' => 6,
                 'required' => 'required',
                 'class' => 'form-control',
                 'title' => 'Enter the total cost in dollars',
-                'required' => 'required',
-                'min' => 1,
-                'max' => '2000',
-                'step' => 1
+                'required' => 'required'
             ),
             'options' => array(
                 'label' => 'Cost'

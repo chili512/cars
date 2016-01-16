@@ -26,11 +26,18 @@ class ServiceTable
 
     /**
      * Persist to the database
+     * http://codesamplez.com/database/doctrine-relations-entity-tutorial assisted in this
      *
      * @param ServiceHistory $serviceHistory            
      */
-    function add(ServiceHistory $serviceHistory)
+    function add(ServiceHistory $serviceHistory, $supplierId)
     {
+        $supplier = $this->em->getRepository('Cars\Entity\Suppliers')->findOneBy(array(
+            "Id" => $supplierId
+        ));  
+        
+        $serviceHistory->setSupplier($supplier);
+        
         $this->em->beginTransaction();
         $this->em->persist($serviceHistory);
         $this->em->flush($serviceHistory);
@@ -45,6 +52,17 @@ class ServiceTable
         $query->setParameter('car', $id, IntegerType::INTEGER);
         $serviceHistory = $query->getResult();
         return $serviceHistory;
+    }
+    
+    function retrieveSuppliers(){
+        $suppliers = $this->em->getRepository('Cars\Entity\Suppliers')->findAll();
+        
+        $supplierArray = array();
+        foreach ($suppliers as $item){
+            $supplierArray[$item->getId()] = $item->getName();
+        }
+        
+        return $supplierArray;
     }
 }
 

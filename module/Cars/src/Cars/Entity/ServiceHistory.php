@@ -2,11 +2,13 @@
 namespace Cars\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter as InputFilter;
+use Doctrine\Common\Collections\ArrayCollection;
+use Zend\Db\Sql\Ddl\Column\Integer;
 
 /**
  *
@@ -21,28 +23,24 @@ class ServiceHistory implements InputFilterAwareInterface
 
     protected $inputFilter;
 
+    public function __construct()
+    {}
+
     /**
-     *
-     * @var int 
-     * 
      * @ORM\Id
      * @ORM\Column(type="integer", name="rid", nullable=false)
      * @ORM\GeneratedValue(strategy="AUTO")
+     * 
+     * @var int
      */
     protected $rid;
 
     /**
-     *
-     * @var int @ORM\Column(type="integer")
-     */
-    protected $supplierid;
-
-    /**
-     *
-     * @var Suppliers 
-     * 
-     * @ManyToOne(targetEntity="Suppliers", inversedBy="servicehistorys")
-     * @JoinColumn(name="supplierId", referencedColumnName="supplierId") *
+     * @ORM\ManyToOne(targetEntity="Suppliers")
+     * @ORM\JoinColumns(
+     * {
+     * @ORM\JoinColumn(name="supplierid", referencedColumnName="SupplierId")
+     * })
      */
     protected $suppliers;
 
@@ -87,6 +85,81 @@ class ServiceHistory implements InputFilterAwareInterface
      * @var int
      */
     protected $odometer;
+
+    public function getRid()
+    {
+        return $this->rid;
+    }
+
+    public function getSupplier()
+    {
+        return $this->suppliers;
+    }
+
+    public function setSupplier($supplier)
+    {
+        $this->suppliers = $supplier;
+    }
+
+    public function setCarId($cardId)
+    {
+        $this->carid = $cardId;
+    }
+
+    public function getCarId()
+    {
+        return $this->carid;
+    }
+
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
+
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    public function setCost($cost)
+    {
+        $this->cost = $cost;
+    }
+
+    public function getCost()
+    {
+        return $this->cost;
+    }
+
+    public function setInvoiceNumber($invoiceNumber)
+    {
+        $this->invoicenumber = $invoiceNumber;
+    }
+
+    public function getInvoiceNumber()
+    {
+        return $this->invoicenumber;
+    }
+
+    public function setOdometer($odometer)
+    {
+        $this->odometer = $odometer;
+    }
+
+    public function getOdometer()
+    {
+        return $this->odometer;
+    }
+
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+    }
+
+    public function getComments()
+    {
+        return $this->comments;
+    }
 
     /*
      * (non-PHPdoc)
