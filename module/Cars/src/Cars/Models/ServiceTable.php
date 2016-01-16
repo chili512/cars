@@ -48,7 +48,7 @@ class ServiceTable
     {
         $query = $this->em->createQuery('SELECT sh.rid, sh.date, sh.carid, sh.comments, sh.odometer, s.name, sh.cost
             FROM  Cars\Entity\ServiceHistory sh JOIN sh.suppliers s
-            WHERE sh.carid = :car');
+            WHERE sh.carid = :car ORDER BY sh.date DESC');
         $query->setParameter('car', $id, IntegerType::INTEGER);
         $serviceHistory = $query->getResult();
         return $serviceHistory;
