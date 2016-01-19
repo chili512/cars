@@ -24,27 +24,7 @@ class ServiceTable
         $this->em->close();
     }
 
-    /**
-     * Persist to the database
-     * http://codesamplez.com/database/doctrine-relations-entity-tutorial assisted in this
-     *
-     * @param ServiceHistory $serviceHistory            
-     */
-    function add(ServiceHistory $serviceHistory, $supplierId)
-    {
-        $supplier = $this->em->getRepository('Cars\Entity\Suppliers')->findOneBy(array(
-            "Id" => $supplierId
-        ));  
-        
-        $serviceHistory->setSupplier($supplier);
-        
-        $this->em->beginTransaction();
-        $this->em->persist($serviceHistory);
-        $this->em->flush($serviceHistory);
-        $this->em->commit();
-    }
-
-    function retrieveHistorySingleCar($id)
+    public function retrieveHistorySingleCar($id)
     {
         $query = $this->em->createQuery('SELECT sh.rid, sh.date, sh.carid, sh.comments, sh.odometer, s.name, sh.cost
             FROM  Cars\Entity\ServiceHistory sh JOIN sh.suppliers s
@@ -53,16 +33,58 @@ class ServiceTable
         $serviceHistory = $query->getResult();
         return $serviceHistory;
     }
-    
-    function retrieveSuppliers(){
-        $suppliers = $this->em->getRepository('Cars\Entity\Suppliers')->findAll();
+
+    /**
+     * Persist to the database
+     * http://codesamplez.com/database/doctrine-relations-entity-tutorial assisted in this
+     *
+     * @param ServiceHistory $serviceHistory            
+     */
+    public function add(ServiceHistory $serviceHistory, $supplierId)
+    {
+        try {
+            $supplier = $this->getSupplier($supplierId);            
+            $serviceHistory->setSupplier($supplier);            
+            $this->save($serviceHistory);
+        } catch (Exception $e) {
+            
+        }
+    }
+
+    /**
+     */
+    private function save($serviceHistory)
+    {
+        $this->em->beginTransaction();
+        $this->em->persist($serviceHistory);
+        $this->em->flush($serviceHistory);
+        $this->em->commit();
+    }
+
+    private function getSupplier($supplierId)
+    {
+        $supplier = $this->em->getRepository('Cars\Entity\Suppliers')->findOneBy(array(
+            "Id" => $supplierId
+        ));
+        return $supplier;
+    }
+
+    private function retrieveSuppliers()
+    {
+        $suppliers = $this->getSuppliers();
         
         $supplierArray = array();
-        foreach ($suppliers as $item){
+        foreach ($suppliers as $item) {
             $supplierArray[$item->getId()] = $item->getName();
         }
         
         return $supplierArray;
+    }
+
+    private function getSuppliers()
+    {
+        $suppliers = $this->em->getRepository('Cars\Entity\Suppliers')->findAll();
+        return $suppliers;
     }
 }
 
