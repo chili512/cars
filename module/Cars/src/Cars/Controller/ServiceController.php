@@ -33,6 +33,20 @@ class ServiceController extends AbstractActionController
     {
         $this->setDataAccess();
         
+        $serviceHistory = $this->serviceTable->retrieveAll();
+        $count = count($serviceHistory);
+        
+        // TODO Auto-generated ServiceController::indexAction() default action
+        return new ViewModel(array(
+            'history' => $serviceHistory,
+            'count' => $count
+        ));
+    }
+    
+    public function retrieveAction(){
+        
+        $this->setDataAccess();
+        
         $id = $this->params('id');
         
         $serviceHistory = $this->serviceTable->retrieveHistorySingleCar($id);

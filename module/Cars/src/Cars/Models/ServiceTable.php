@@ -23,6 +23,16 @@ class ServiceTable
     {
         $this->em->close();
     }
+    
+    public function retrieveAll(){
+        
+        $query = $this->em->createQuery('SELECT sh.rid, sh.date, sh.carid, sh.comments, sh.odometer, s.name, sh.cost, sh.carid
+            FROM  Cars\Entity\ServiceHistory sh JOIN sh.suppliers s
+            ORDER BY sh.date DESC');
+        
+        $serviceHistory = $query->getResult();
+        return $serviceHistory;
+    }
 
     public function retrieveHistorySingleCar($id)
     {

@@ -4,11 +4,10 @@
 <?php if($this->count == 0){?>
 <p>
 		<strong>No Service History Records</strong>
-<?php }else{?>
+<?php }else{?>		
 	<table class="table table-bordered table-hover">
 		<thead>
 			<tr>
-				<th>Car</th>
 				<th>Date</th>
 				<th>Supplier</th>
 				<th>Cost</th>
@@ -18,8 +17,7 @@
 		</thead>
 		<tbody>
 		<?php foreach ($this->history as $h){?>
-		<tr>
-		       <td><?php echo $h['carid'];?></td>
+	       <tr>
 				<td><?php echo $h['date']->format('d-M-Y');?></td>
 				<td><?php echo $h['name'];?></td>
 				<td><?php echo $this->currencyFormat($h['cost']);?></td>
