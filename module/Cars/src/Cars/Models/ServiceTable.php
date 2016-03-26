@@ -23,9 +23,9 @@ class ServiceTable
     {
         $this->em->close();
     }
-    
-    public function retrieveAll(){
-        
+
+    public function retrieveAll()
+    {
         $query = $this->em->createQuery('SELECT sh.rid, sh.date, sh.carid, sh.comments, sh.odometer, s.name, sh.cost, sh.carid
             FROM  Cars\Entity\ServiceHistory sh JOIN sh.suppliers s
             ORDER BY sh.date DESC');
@@ -53,12 +53,10 @@ class ServiceTable
     public function add(ServiceHistory $serviceHistory, $supplierId)
     {
         try {
-            $supplier = $this->getSupplier($supplierId);            
-            $serviceHistory->setSupplier($supplier);            
+            $supplier = $this->getSupplier($supplierId);
+            $serviceHistory->setSupplier($supplier);
             $this->save($serviceHistory);
-        } catch (Exception $e) {
-            
-        }
+        } catch (Exception $e) {}
     }
 
     /**
@@ -79,7 +77,7 @@ class ServiceTable
         return $supplier;
     }
 
-    private function retrieveSuppliers()
+    public function retrieveSuppliers()
     {
         $suppliers = $this->getSuppliers();
         
@@ -93,7 +91,9 @@ class ServiceTable
 
     private function getSuppliers()
     {
-        $suppliers = $this->em->getRepository('Cars\Entity\Suppliers')->findAll();
+        // The table column name is Name, but the ORM is name. Case sensitive.
+        $suppliers = $this->em->getRepository('Cars\Entity\Suppliers')->findBy(array(), 
+            array('name' => 'ASC'));
         return $suppliers;
     }
 }

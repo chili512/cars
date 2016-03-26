@@ -163,11 +163,16 @@ class CarsController extends AbstractActionController
         
         $history = $service->retrieveHistorySingleCar($id);
         $count = count($history);
+        $totalcost = 0;
+        foreach ($history as $item) {
+            $totalcost += $item['cost'];
+        }
         
         $view = new ViewModel(array(
             'car' => $car,
             'service' => $history,
-            'count' => $count
+            'count' => $count,
+            'totalcost' => $totalcost
         ));
         
         return $view;

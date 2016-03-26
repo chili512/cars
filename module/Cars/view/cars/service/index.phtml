@@ -5,6 +5,7 @@
 <p>
 		<strong>No Service History Records</strong>
 <?php }else{?>
+
 	<table class="table table-bordered table-hover">
 		<thead>
 			<tr>
@@ -19,15 +20,22 @@
 		<tbody>
 		<?php foreach ($this->history as $h){?>
 		<tr>
-		       <td><?php echo $h['carid'];?></td>
+				<td><?php echo $h['carid'];?></td>
 				<td><?php echo $h['date']->format('d-M-Y');?></td>
 				<td><?php echo $h['name'];?></td>
-				<td><?php echo $this->currencyFormat($h['cost']);?></td>
+				<td style="text-align: right"><?php echo $this->currencyFormat($h['cost']);?></td>
 				<td><?php echo $h['comments'];?></td>
-				<td><?php echo $h['odometer'];?></td>
+				<td style="text-align: right"><?php echo $h['odometer'];?></td>
 			</tr>
 		<?php }?>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="3">&nbsp;</td>
+		        <td><?php echo $this->currencyFormat($this->totalcost);?></td>
+		        <td colspan="2">&nbsp;</td>
+		    </tr>
+		</tfoot>
 	</table>
 <?php }?>
 </div>

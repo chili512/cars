@@ -144,7 +144,7 @@ class CarTable
             
             // Create a new record and assign the name
             $model = new Model();
-            $model->name = $name;
+            $model->SetName($name);
             
             // Persist
             $this->em->persist($model);
@@ -153,7 +153,7 @@ class CarTable
             $this->em->flush($model);
             
             // Retrieve the ID
-            $id = $model->id;            
+            $id = $model->GetId();            
         } else {
             
             $id = $result[0]['id'];

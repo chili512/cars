@@ -1,109 +1,98 @@
-<section>
-	<div class="panel panel-primary panel-secondary">
-		<div class="panel-heading">Enter Details of a New Car</div>
-		<div class="panel-body">
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		title="close window">
+		<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+	</button>
+	<h2 id="myModalLabel" class="modal-title">Add New Car</h2>
+	<div class="modal-body">
 <?php
 $form = $this->form;
 $form->prepare();
-
 echo $this->form()->openTag($form);
 ?>
+        <div class="form-group">
+			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('make'))?></div>
+			<div class="col-md-9"><?php echo $this->formelement($form->get('make'))?></div>
+		</div>
 
-<div class="form-group">
-				<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('make'))?></div>
-				<div class="col-md-9"><?php echo $this->formelement($form->get('make'))?></div>
-			</div>
+		<div class="form-group">
+			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('model'))?></div>
+			<div class="col-md-9"><?php echo $this->formelement($form->get('model'))?></div>
+		</div>
 
-			<div class="form-group">
-				<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('model'))?></div>
-				<div class="col-md-9"><?php echo $this->formelement($form->get('model'))?></div>
-			</div>
+		<div class="form-group">
+			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('transmission'))?></div>
+			<div class="col-md-9"><?php echo $this->formelement($form->get('transmission'))?></div>
+		</div>
 
-			<div class="form-group">
-				<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('transmission'))?></div>
-				<div class="col-md-9"><?php echo $this->formelement($form->get('transmission'))?></div>
-			</div>
+		<div class="form-group">
+			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('cylinders'))?></div>
+			<div class="col-md-9"><?php echo $this->formelement($form->get('cylinders'))?></div>
+		</div>
 
-			<div class="form-group">
-				<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('cylinders'))?></div>
-				<div class="col-md-9"><?php echo $this->formelement($form->get('cylinders'))?></div>
-			</div>
+		<div class="form-group">
+			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('enginesize'))?></div>
+			<div class="col-md-9"><?php echo $this->formelement($form->get('enginesize'))?></div>
+		</div>
 
-			<div class="form-group">
-				<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('enginesize'))?></div>
-				<div class="col-md-9"><?php echo $this->formelement($form->get('enginesize'))?></div>
-			</div>
+		<div class="form-group">
+			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('bodytype'))?></div>
+			<div class="col-md-9"><?php echo $this->formelement($form->get('bodytype'))?></div>
+		</div>
 
-			<div class="form-group">
-				<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('bodytype'))?></div>
-				<div class="col-md-9"><?php echo $this->formelement($form->get('bodytype'))?></div>
-			</div>
+		<div class="form-group">
+			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('image'))?></div>
+			<div class="col-md-9"><?php echo $this->formelement($form->get('image'))?></div>
+		</div>
 
-			<div class="form-group">
-				<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('image'))?></div>
-				<div class="col-md-9"><?php echo $this->formelement($form->get('image'))?></div>
-			</div>
-
-			<div class="form-group">
-				<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('license'));?></div>
-				<div class="col-md-9"><?php
-    
-    echo $this->formelement($form->get('license'));
-    echo $this->formelementerrors($form->get('license'));
-    ?>
+		<div class="form-group">
+			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('license'));?></div>
+			<div class="col-md-9"><?php echo $this->formelement($form->get('license'));
+            echo $this->formelementerrors($form->get('license'));?>
 				</div>
-			</div>
+		</div>
 
-			<div class="form-group">
-				<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('purchased'));?></div>
-				<div class="col-md-9"><?php
-    
-    echo $this->formelement($form->get('purchased'));
-    echo $this->formelementerrors($form->get('purchased'));
-    ?>
+		<div class="form-group">
+			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('purchased'));?></div>
+			<div class="col-md-9"><?php echo $this->formelement($form->get('purchased'));
+			echo $this->formelementerrors($form->get('purchased'));?>
 				</div>
-			</div>
+		</div>
 
-			<div class="form-group">
-				<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('modelyear'));?></div>
-				<div class="col-md-9"><?php
-    
-    echo $this->formelement($form->get('modelyear'));
-    echo $this->formelementerrors($form->get('modelyear'));
-    ?>
+		<div class="form-group">
+			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('modelyear'));?></div>
+			<div class="col-md-9"><?php
+                echo $this->formelement($form->get('modelyear'));
+                echo $this->formelementerrors($form->get('modelyear'));?>
 				</div>
-			</div>
+		</div>
 
-			<div class="form-group">
-				<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('cost'));?></div>
-				<div class="col-md-9"><?php
-    
-    echo $this->formelement($form->get('cost'));
-    echo $this->formelementerrors($form->get('cost'));
-    ?>
+		<div class="form-group">
+			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('cost'));?></div>
+			<div class="col-md-9"><?php
+            echo $this->formelement($form->get('cost'));
+            echo $this->formelementerrors($form->get('cost'));?>
 				</div>
-			</div>
+		</div>
 
-			<div class="form-group">
-				<div class="col-md-offset-3 col-md-9">
-					<button type="submit" class="btn default" title="Save changes">
-						<span class="glyphicon glyphicon-save"></span>&nbsp;Save
-					</button>
-				</div>
-			</div>
+		<div class="modal-footer">			
+				<button type="submit" class="btn default" title="Save changes">
+					<span class="glyphicon glyphicon-save"></span>&nbsp;Save
+				</button>			
+		</div>
 	
 <?php echo $this->form()->closeTag(); ?>
-</div>
+
 	</div>
-</section>
+</div>
 <script type="text/javascript">
 $(document).ready(function(){
 	var now = new Date();
 	$('#purchased').datepicker({
-		'format': 'yyyy/MM/dd',
+		'format': 'yyyy/mm/dd',
     	'default': now,
     	'max': now,
     	culture: 'en-AU' 
 	});
 });
-				</script>
+</script>

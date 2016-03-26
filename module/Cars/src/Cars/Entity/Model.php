@@ -39,6 +39,14 @@ class Model implements InputFilterAwareInterface
      * @var The type of body
      */
     private  $name;
+    
+    public function SetName($name){
+        $this->name = $name;
+    }
+    
+    public function GetId(){
+        return $this->id;
+    }
 
     /**
      * Magic setter

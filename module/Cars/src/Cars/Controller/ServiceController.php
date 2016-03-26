@@ -35,16 +35,23 @@ class ServiceController extends AbstractActionController
         
         $serviceHistory = $this->serviceTable->retrieveAll();
         $count = count($serviceHistory);
+        $totalCost = 0;
+        foreach ($serviceHistory as $value) {
+            $totalCost += $value['cost'];
+        }
+        
+        echo $totalCost;
         
         // TODO Auto-generated ServiceController::indexAction() default action
         return new ViewModel(array(
             'history' => $serviceHistory,
-            'count' => $count
+            'count' => $count,
+            'totalcost' => $totalCost
         ));
     }
-    
-    public function retrieveAction(){
-        
+
+    public function retrieveAction()
+    {
         $this->setDataAccess();
         
         $id = $this->params('id');
