@@ -3,11 +3,9 @@ namespace Cars;
 
 // http://www.zfdaily.com/2012/07/getting-dependencies-into-zf2-controllers/
 
-// 'Cars\Controller\Cars' => 'Cars\Factory\CarControllerFactory'
 return array( // Note the plurality
     'controllers' => array(
         'invokables' => array(
-            //'Cars\Controller\Cars' => 'Cars\Controller\CarsController',
             'Cars\Controller\Service' => 'Cars\Controller\ServiceController'
         ),
         'factories'=>array(
