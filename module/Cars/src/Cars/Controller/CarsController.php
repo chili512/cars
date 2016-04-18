@@ -42,10 +42,11 @@ class CarsController extends AbstractActionController
      * Constructor for the CarsController class.
      * A PHP magic method
      */
-    function __construct()
+    function __construct(CarTable $carTable)
     {
         $this->_currentYear = date('Y');
         $this->_yearsSinceFirstCar = $this->_currentYear - $this->_firstYear;
+        $this->carTable = $carTable;
     }
 
     /**
@@ -55,8 +56,6 @@ class CarsController extends AbstractActionController
      */
     public function indexAction()
     {
-        $this->setDataAccess();
-        
         $allcars = $this->carTable->retrieveAll();
         $total = count($allcars);
         
@@ -76,8 +75,6 @@ class CarsController extends AbstractActionController
      */
     public function addAction()
     {
-        $this->setDataAccess();
-        
         $transmissions = $this->carTable->transmissions();
         $bodyTypes = $this->carTable->bodyTypes();
         $makes = $this->carTable->manufacturers();
@@ -103,8 +100,6 @@ class CarsController extends AbstractActionController
     {
         $request = $this->getRequest();
         if ($request->isPost()) {
-            
-            $this->setDataAccess();
             
             $auto = new Automobile();
             $auto->BodyType = $_POST['bodytype'];
@@ -155,8 +150,6 @@ class CarsController extends AbstractActionController
             return $this->redirect()->toRoute('cars');
         }
         
-        $this->setDataAccess();
-        
         $car = $this->carTable->getAutomobile($id);
         $sm = $this->getServiceLocator();
         $service = $sm->get('Cars\Models\ServiceTable');
@@ -205,16 +198,5 @@ class CarsController extends AbstractActionController
             $message = $e->getMessage();
         }
         return $message;
-    }
-
-    /**
-     * This function handles the retrieval of the data access layer
-     *
-     * @return void
-     */
-    private function setDataAccess()
-    {
-        $sm = $this->getServiceLocator();
-        $this->carTable = $sm->get('Cars\Models\CarTable');
     }
 }

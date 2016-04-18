@@ -7,8 +7,11 @@ namespace Cars;
 return array( // Note the plurality
     'controllers' => array(
         'invokables' => array(
-            'Cars\Controller\Cars' => 'Cars\Controller\CarsController',
+            //'Cars\Controller\Cars' => 'Cars\Controller\CarsController',
             'Cars\Controller\Service' => 'Cars\Controller\ServiceController'
+        ),
+        'factories'=>array(
+            'Cars\Controller\Cars' => 'Cars\Controller\Factory\CarsControllerFactory'
         )
     ),
     'router' => array(
