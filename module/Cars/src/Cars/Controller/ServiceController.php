@@ -5,7 +5,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Cars\Form\ServiceRecordForm;
 use Cars\Entity\ServiceHistory;
-use Cars\Entity\Suppliers;
 
 /**
  * ServiceController
@@ -35,12 +34,7 @@ class ServiceController extends AbstractActionController
         
         $serviceHistory = $this->serviceTable->retrieveAll();
         $count = count($serviceHistory);
-        $totalCost = 0;
-        foreach ($serviceHistory as $value) {
-            $totalCost += $value['cost'];
-        }
-        
-        echo $totalCost;
+        $totalCost = $this->serviceTable->sumAllServiceCosts();
         
         // TODO Auto-generated ServiceController::indexAction() default action
         return new ViewModel(array(
@@ -57,12 +51,14 @@ class ServiceController extends AbstractActionController
         $id = $this->params('id');
         
         $serviceHistory = $this->serviceTable->retrieveHistorySingleCar($id);
+        $totalCost = (double) $this->serviceTable->sumServiceCostForCar($id);
         $count = count($serviceHistory);
         
         // TODO Auto-generated ServiceController::indexAction() default action
         return new ViewModel(array(
             'history' => $serviceHistory,
-            'count' => $count
+            'count' => $count,
+            'total' => $totalCost
         ));
     }
 

@@ -4,6 +4,7 @@ namespace Cars\Models;
 use Doctrine\ORM\EntityManager;
 use Cars\Entity\ServiceHistory;
 use Doctrine\DBAL\Types\IntegerType;
+use Doctrine\ORM\Query;
 
 class ServiceTable
 {
@@ -34,6 +35,11 @@ class ServiceTable
         return $serviceHistory;
     }
 
+    /**
+     * Retrieve the service history for a single car
+     * @param int $id
+     * @return multitype:
+     */
     public function retrieveHistorySingleCar($id)
     {
         $query = $this->em->createQuery('SELECT sh.rid, sh.date, sh.carid, sh.comments, sh.odometer, s.name, sh.cost
@@ -42,6 +48,26 @@ class ServiceTable
         $query->setParameter('car', $id, IntegerType::INTEGER);
         $serviceHistory = $query->getResult();
         return $serviceHistory;
+    }
+    
+    /**
+     * Retrieve the total service cost for one car
+     * @param unknown $id
+     * @return number
+     */
+    public function sumServiceCostForCar($id){
+        
+        $query = $this->em->createQuery('SELECT SUM(s.cost) FROM Cars\Entity\ServiceHistory s WHERE s.carid = :car');
+        $query->setParameter('car', $id);
+        $result = $query->getResult();
+        return (double)$result[0][1];
+    }
+    
+    public function sumAllServiceCosts(){
+        
+        $query = $this->em->createQuery('SELECT SUM(s.cost) FROM Cars\Entity\ServiceHistory s');
+        $result = $query->getResult();
+        return (double)$result[0][1];
     }
 
     /**

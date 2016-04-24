@@ -156,10 +156,7 @@ class CarsController extends AbstractActionController
         
         $history = $service->retrieveHistorySingleCar($id);
         $count = count($history);
-        $totalcost = 0;
-        foreach ($history as $item) {
-            $totalcost += $item['cost'];
-        }
+        $totalcost = $service->sumServiceCostForCar($id);
         
         $view = new ViewModel(array(
             'car' => $car,
