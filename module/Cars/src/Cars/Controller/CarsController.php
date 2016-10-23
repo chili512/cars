@@ -13,6 +13,7 @@ use Zend\View\Model\ViewModel;
 use Cars\Form\NewCarForm;
 use Cars\Models\CarTable;
 use Cars\Entity\Automobile;
+use Cars\Models\ServiceTable;
 
 /**
  * Handles requests of the format /cars
@@ -36,17 +37,23 @@ class CarsController extends AbstractActionController
      */
     private $carTable;
 
+    /**
+     * 
+     * 
+     * @var unknown
+     */
     private $serviceTable;
 
     /**
      * Constructor for the CarsController class.
      * A PHP magic method
      */
-    function __construct(CarTable $carTable)
+    function __construct(CarTable $carTable, ServiceTable $serviceTable)
     {
         $this->_currentYear = date('Y');
         $this->_yearsSinceFirstCar = $this->_currentYear - $this->_firstYear;
         $this->carTable = $carTable;
+        $this->serviceTable = $serviceTable;
     }
 
     /**
@@ -151,12 +158,9 @@ class CarsController extends AbstractActionController
         }
         
         $car = $this->carTable->getAutomobile($id);
-        $sm = $this->getServiceLocator();
-        $service = $sm->get('Cars\Models\ServiceTable');
-        
-        $history = $service->retrieveHistorySingleCar($id);
+        $history = $this->serviceTable->retrieveHistorySingleCar($id);
         $count = count($history);
-        $totalcost = $service->sumServiceCostForCar($id);
+        $totalcost = $this->serviceTable->sumServiceCostForCar($id);
         
         $view = new ViewModel(array(
             'car' => $car,

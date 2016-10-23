@@ -14,7 +14,8 @@ use Zend\Mvc\MvcEvent;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Cars\Models\CarTable;
 use Cars\Models\ServiceTable;
-use Application\Controller\IndexController;
+use Cars\Controller\ServiceController;
+use Cars\Controller\CarsController;
 
 /**
  *
@@ -65,14 +66,25 @@ class Module implements AutoloaderProviderInterface, ServiceProviderInterface
         $moduleRouteListener->attach($eventManager);
     }
 
+    /**
+     * 
+     * @return multitype:multitype:NULL  |\Application\Controller\IndexController|\Cars\Controller\ServiceController
+     */
     public function getControllerConfig()
     {
         return array(
             'factories' => array(
-                'Application\Controller' => function ($sm) {
+                'Cars\Controller\Service' => function ($sm) {
                     $locator = $sm->getServiceLocator();
+                    $serviceTable = $locator->get('Cars\Models\ServiceTable');
+                    $controller = new ServiceController($serviceTable);
+                    return $controller;
+                },
+                'Cars\Controller\Cars'=>function($sm){
+                    $locator = $sm->getServiceLocator();
+                    $serviceTable = $locator->get('Cars\Models\ServiceTable');
                     $carTable = $locator->get('Cars\Models\CarTable');
-                    $controller = new IndexController($carTable);
+                    $controller = new CarsController($carTable, $serviceTable);
                     return $controller;
                 }
             )

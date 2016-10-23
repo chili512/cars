@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Cars\Form\ServiceRecordForm;
 use Cars\Entity\ServiceHistory;
+use Cars\Models\ServiceTable;
 
 /**
  * ServiceController
@@ -19,10 +20,14 @@ class ServiceController extends AbstractActionController
 
     private $serviceTable;
 
-    private function setDataAccess()
+    /**
+     * Constructor for this controller
+     *
+     * @param ServiceTable $serviceTable            
+     */
+    public function __construct(ServiceTable $serviceTable)
     {
-        $sm = $this->getServiceLocator();
-        $this->serviceTable = $sm->get('Cars\Models\ServiceTable');
+        $this->serviceTable = $serviceTable;
     }
 
     /**
@@ -30,8 +35,7 @@ class ServiceController extends AbstractActionController
      */
     public function indexAction()
     {
-        $this->setDataAccess();
-        
+        // $this->setDataAccess();
         $serviceHistory = $this->serviceTable->retrieveAll();
         $count = count($serviceHistory);
         $totalCost = $this->serviceTable->sumAllServiceCosts();
@@ -46,8 +50,6 @@ class ServiceController extends AbstractActionController
 
     public function retrieveAction()
     {
-        $this->setDataAccess();
-        
         $id = $this->params('id');
         
         $serviceHistory = $this->serviceTable->retrieveHistorySingleCar($id);
@@ -69,7 +71,6 @@ class ServiceController extends AbstractActionController
             return $this->redirect()->toRoute('cars');
         }
         
-        $this->setDataAccess();
         $suppliers = $this->serviceTable->retrieveSuppliers();
         
         $form = new ServiceRecordForm($id, $suppliers);
@@ -85,8 +86,6 @@ class ServiceController extends AbstractActionController
 
     public function saveAction()
     {
-        $this->setDataAccess();
-        
         $date = new \DateTime($_POST['date']);
         $supplierId = (int) $_POST['supplierid'];
         $carId = (int) $_POST['carId'];
