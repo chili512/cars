@@ -1,9 +1,7 @@
 <?php
 return array(
     'controllers' => array(
-        'invokables' => array(
-            'Album\Controller\Album' => 'Album\Controller\AlbumController'
-        )
+        'factories' => array()
     ),
     'router' => array(
         'routes' => array(

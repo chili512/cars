@@ -12,9 +12,11 @@ use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Album\Model\Album;
-use Album\Model\AlbumTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
+use Album\Controller\AlbumController;
+use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Album\Model\AlbumTable;
 
 /**
  * http://www.framework.zend.com/manual/2.2/en/user-guide/modules.html
@@ -23,7 +25,7 @@ use Zend\Db\TableGateway\TableGateway;
  * @author jon
  *        
  */
-class Module implements AutoloaderProviderInterface
+class Module implements AutoloaderProviderInterface, ServiceProviderInterface
 {
 
     /**
@@ -67,6 +69,20 @@ class Module implements AutoloaderProviderInterface
         $moduleRouteListener->attach($eventManager);
     }
 
+    public function getControllerConfig()
+    {
+        return array(
+            'factories' => array(
+                'Album\Controller\Album' => function ($sm) {
+                    $locator = $sm->getServiceLocator();
+                    $albumTable = $locator->get('Album\Model\AlbumTable');
+                    $controller = new AlbumController($albumTable);
+                    return $controller;
+                }
+            )
+        );
+    }
+
     /**
      * Service manager retrieves an array of factories from this function
      *
@@ -75,19 +91,23 @@ class Module implements AutoloaderProviderInterface
     public function getServiceConfig()
     {
         return array(
+            'abstract_factories' => array(),
+            'aliases' => array(),
             'factories' => array(
                 'Album\Model\AlbumTable' => function ($sm) {
+                    
                     $tableGateway = $sm->get('AlbumTableGateway');
                     $table = new AlbumTable($tableGateway);
                     return $table;
+                },
+                'AlbumTableGateway' => function ($sm) {
+                    
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Album());
+                    return new TableGateway('album', $dbAdapter, null, $resultSetPrototype);
                 }
-            ),
-            'AlbumTableGateway' => function ($sm) {
-                $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                $resultSetPrototype = new ResultSet();
-                $resultSetPrototype->setArrayObjectPrototype(new Album());
-                return new TableGateway('album', $dbAdapter, null, $resultSetPrototype);
-            }        
+            )
         );
     }
 }

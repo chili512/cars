@@ -6,10 +6,10 @@
  ?>
  <h1><?php echo $this->escapeHtml($title); ?></h1>
  <p>
-     <a href="<?php echo $this->url('album', array('action'=>'add'));?>">Add new album</a>
+     <a href="<?php echo $this->url('album', array('action'=>'add'));?>" class="btn btn-primary">Add new album</a>
  </p>
 
- <table class="table">
+ <table class="table table-border table-hover">
  <tr>
      <th>Title</th>
      <th>Artist</th>
@@ -20,10 +20,12 @@
      <td><?php echo $this->escapeHtml($album->title);?></td>
      <td><?php echo $this->escapeHtml($album->artist);?></td>
      <td>
+     <div class="btn-group">
          <a href="<?php echo $this->url('album',
-             array('action'=>'edit', 'id' => $album->id));?>">Edit</a>
+             array('action'=>'edit', 'id' => $album->id));?>" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Edit</a>
          <a href="<?php echo $this->url('album',
-             array('action'=>'delete', 'id' => $album->id));?>">Delete</a>
+             array('action'=>'delete', 'id' => $album->id));?>" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span>Delete</a>
+             </div>
      </td>
  </tr>
  <?php endforeach; ?>

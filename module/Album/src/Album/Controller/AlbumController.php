@@ -12,6 +12,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Album\Form\AlbumForm;
 use Album\Model\Album;
+use Album\Model\AlbumTable;
 
 /**
  *
@@ -22,10 +23,15 @@ class AlbumController extends AbstractActionController
 {
 
     /**
+     * The link to the database
      *
-     * @var unknown
+     * @var AlbumTable
      */
     protected $albumTable;
+    
+    public function __construct($albumTable){
+        $this->albumTable = $albumTable;        
+    }
 
     /**
      * (non-PHPdoc)
@@ -35,7 +41,7 @@ class AlbumController extends AbstractActionController
     public function indexAction()
     {
         return new ViewModel(array(
-            'albums' => $this->getAlbumTable()->fetchAll()
+            'albums' => $this->albumTable->fetchAll()
         ));
     }
 
@@ -56,7 +62,7 @@ class AlbumController extends AbstractActionController
             
             if ($form->isValid()) {
                 $album->exchangeArray($form->getData());
-                $this->getAlbumTable()->saveAlbum($album);
+                $this->albumTable->saveAlbum($album);
                 
                 // Redirect to list of albums
                 return $this->redirect()->toRoute('album');
@@ -81,7 +87,7 @@ class AlbumController extends AbstractActionController
         // Get the Album with the specified id.  An exception is thrown
         // if it cannot be found, in which case go to the index page.
         try {
-            $album = $this->getAlbumTable()->getAlbum($id);
+            $album = $this->albumTable->getAlbum($id);
         }
         catch (\Exception $ex) {
             return $this->redirect()->toRoute('album', array(
@@ -99,7 +105,7 @@ class AlbumController extends AbstractActionController
             $form->setData($request->getPost());
         
             if ($form->isValid()) {
-                $this->getAlbumTable()->saveAlbum($album);
+                $this->albumTable->saveAlbum($album);
         
                 // Redirect to list of albums
                 return $this->redirect()->toRoute('album');
@@ -127,7 +133,7 @@ class AlbumController extends AbstractActionController
         
             if ($del == 'Yes') {
                 $id = (int) $request->getPost('id');
-                $this->getAlbumTable()->deleteAlbum($id);
+                $this->albumTable->deleteAlbum($id);
             }
         
             // Redirect to list of albums
@@ -136,18 +142,7 @@ class AlbumController extends AbstractActionController
         
         return array(
             'id'    => $id,
-            'album' => $this->getAlbumTable()->getAlbum($id)
+            'album' => $this->albumTable->getAlbum($id)
         );
-    }
-
-    /**
-     */
-    public function getAlbumTable()
-    {
-        if (! $this->albumTable) {
-            $sm = $this->getServiceLocator();
-            $this->albumTable = $sm->get('Album\Model\AlbumTable');
-        }
-        return $this->albumTable;
     }
 }
