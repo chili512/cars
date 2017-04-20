@@ -47,7 +47,7 @@
                     title="Close this window">
                 <span class="glyphicon glyphicon-remove"></span>&nbsp;Close
             </button>
-            <button type="submit" class="btn btn-primary" title="Save changes">
+            <button type="submit" class="btn btn-primary" title="Save changes" id="save-button">
                 <span class="glyphicon glyphicon-save"></span>&nbsp;Save
             </button>
             <?php echo $this->formelement($form->get('carId')) ?>
@@ -58,6 +58,8 @@
 </div>
 
 <script type="text/javascript">
+
+
     $(document).ready(function () {
         var now = new Date();
         $('#servicedate').datepicker({
@@ -69,27 +71,25 @@
 
         var formName = $('form')[0].id;
 
-        console.log($('#form'+formName))
-
-        var formValidator = $('#form'+formName).validate(
-            {
-                rules: {
-                    odometer: {required: true, number: true},
-                    comments: {required: true},
-                    servicedate: {date: true, required: true},
-                    cost: {required: true, number: true},
-                    invoicenumber: {required: true}
-                },
-                messages: {
-                    odometer: 'A valid $ amount is required',
-                    comments: 'A description is required',
-                    date: 'A valid date is required',
-                    invoicenumber:'An invoice number is required or NA',
-                    cost:'A $ value for the cost is required'
-                },
-                debug: true
-            }
-        );
+        formValidator = $('#form'+formName).validate(
+                {
+                    rules: {
+                        odometer: {required: true, number: true},
+                        comments: {required: true},
+                        servicedate: {date: true, required: true},
+                        cost: {required: true, number: true},
+                        invoicenumber: {required: true}
+                    },
+                    messages: {
+                        odometer: 'A valid $ amount is required',
+                        comments: 'A description is required',
+                        date: 'A valid date is required',
+                        invoicenumber:'An invoice number is required or NA',
+                        cost:'A $ value for the cost is required'
+                    },
+                    debug: true
+                }
+            );
 
         $('#form'+formName).submit(function (event) {
             event.preventDefault();
@@ -124,5 +124,9 @@
                 type: 'post'
             })
         })
+
+        $('#save-button').click(function(){
+        	console.log('submit form');
+        })       
     });
 </script>
