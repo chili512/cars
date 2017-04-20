@@ -13,8 +13,8 @@
         <?php echo $this->form()->openTag($form); ?>
 
         <div class="form-group">
-            <div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('date')) ?></div>
-            <div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('date')) ?></div>
+            <div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('servicedate')) ?></div>
+            <div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('servicedate')) ?></div>
         </div>
 
         <div class="form-group">
@@ -67,7 +67,11 @@
             culture: 'en-AU'
         });
 
-        var formValidator = $('form').validate(
+        var formName = $('form')[0].id;
+
+        console.log($('#form'+formName))
+
+        var formValidator = $('#form'+formName).validate(
             {
                 rules: {
                     odometer: {required: true, number: true},
@@ -87,7 +91,7 @@
             }
         );
 
-        $('form').submit(function (event) {
+        $('#form'+formName).submit(function (event) {
             event.preventDefault();
             var cost = Math.round(parseFloat($('#cost').val()) * 100) / 100;
             $.ajax({
