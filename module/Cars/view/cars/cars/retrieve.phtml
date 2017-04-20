@@ -1,86 +1,85 @@
-<?php $this->plugin('currencyformat')->setCurrencyCode('USD')->setLocale('en-US');?>
-<h1><?php echo $this->car->getModelYear().' '. $this->car->getMake(). ' '.$this->car->getModel()?></h1>
+<?php $this->plugin('currencyformat')->setCurrencyCode('USD')->setLocale('en-US'); ?>
+<h1><?php echo $this->car->getModelYear() . ' ' . $this->car->getMake() . ' ' . $this->car->getModel() ?></h1>
 <div class="row">
-	<div class="col-md-4">
-		<img
-			src="<?php echo $this->basePath() . '/img/'.$car->getImage().'.jpg';?>"
-			alt="<?php echo $car->getMake() . ' '.$car->getModel()?>"
-			title="<?php echo $car->getModelYear().' '. $car->getMake() . ' '.$car->getModel()?>" />
-	</div>
-	<div class="col-md-8">
-		<p>
-			<strong>License</strong> <?php echo $this->car->getLicense();?></p>
-		<p>
-			<strong>Engine</strong> <?php echo $this->car->getEngineSize();?>lt</p>
-		<p>
-			<strong>Transmission</strong> <?php echo $this->car->getTransmission();?></p>
-		<p>
-			<strong>Cost</strong> <?php echo $this->currencyFormat($this->car->getCost());?></p>
-		<p>
-			<strong>Purchased</strong> <?php echo $this->car->getPurchased()->format('d-M-Y');?></p>
-	</div>
+    <div class="col-md-4">
+        <img src="<?php echo $this->basePath() . '/img/' . $car->getImage() . '.jpg'; ?>"
+             alt="<?php echo $car->getMake() . ' ' . $car->getModel() ?>"
+             title="<?php echo $car->getModelYear() . ' ' . $car->getMake() . ' ' . $car->getModel() ?>"/>
+    </div>
+    <div class="col-md-8">
+        <p>
+            <strong>License</strong> <?php echo $this->car->getLicense(); ?></p>
+        <p>
+            <strong>Engine</strong> <?php echo $this->car->getEngineSize(); ?>lt</p>
+        <p>
+            <strong>Transmission</strong> <?php echo $this->car->getTransmission(); ?></p>
+        <p>
+            <strong>Cost</strong> <?php echo $this->currencyFormat($this->car->getCost()); ?></p>
+        <p>
+            <strong>Purchased</strong> <?php echo $this->car->getPurchased()->format('d-M-Y'); ?></p>
+    </div>
 </div>
 
 <h3>Service History</h3>
 <div class="row">
-	<div class="col-md-12">
-		<a data-toggle="modal" data-target="#custom"
-			href="<?php echo $this->url('service',array('action'=>'add', 'id'=>$car->getId()));?>"
-			class="btn btn-default" title="Add a servicerecord"> <span
-			class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Service
-		</a>
-	</div>
+    <div class="col-md-12">
+        <a data-toggle="modal" data-target="#custom"
+           href="<?php echo $this->url('service', array('action' => 'add', 'id' => $car->getId())); ?>"
+           class="btn btn-default" title="Add a servicerecord"> <span
+                    class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Service
+        </a>
+    </div>
 </div>
 
 <div class="modal fade" id="custom" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content" id="wrapper"></div>
-	</div>
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="wrapper"></div>
+    </div>
 </div>
 
 <div class="row">
-	<div class="col-md-12">
-<?php if($this->service == null){?>	
-	<p>
-			<strong>No service history</strong>
-		</p>
-<?php }else{?>
-<div id="data">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th>Date</th>
-						<th>Supplier</th>
-						<th>Cost</th>
-						<th>Comments</th>
-						<th>Odo</th>
-					</tr>
-				</thead>
-				<tbody>
-		<?php foreach ($this->service as $h){?>
-		<tr>
-						<td><?php echo $h['date']->format('d-M-Y');?></td>
-						<td><?php echo $h['name'];?></td>
-						<td><?php echo $this->currencyFormat($h['cost']);?></td>
-						<td><?php echo $h['comments'];?></td>
-						<td><?php echo $h['odometer'];?></td>
-					</tr>
-		<?php }?>
-		</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="2">&nbsp;</td>
-						<td><?php echo $this->currencyFormat($this->totalcost);?></td>
-						<td colspan="2">&nbsp;</td>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
-<?php }?>	
-</div>
+    <div class="col-md-12">
+        <?php if ($this->service == null) { ?>
+            <p>
+                <strong>No service history</strong>
+            </p>
+        <?php } else { ?>
+            <div id="data">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Supplier</th>
+                        <th>Cost</th>
+                        <th>Comments</th>
+                        <th>Odo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($this->service as $h) { ?>
+                        <tr>
+                            <td><?php echo $h['date']->format('d-M-Y'); ?></td>
+                            <td><?php echo $h['name']; ?></td>
+                            <td><?php echo $this->currencyFormat($h['cost']); ?></td>
+                            <td><?php echo $h['comments']; ?></td>
+                            <td><?php echo $h['odometer']; ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                        <td><?php echo $this->currencyFormat($this->totalcost); ?></td>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        <?php } ?>
+    </div>
 </div>
 <div>
-	<a href="<?php echo $this->url('cars')?>" title="View all cars"
-		class="btn btn-default">View all cars</a>
+    <a href="<?php echo $this->url('cars') ?>" title="View all cars"
+       class="btn btn-default">View all cars</a>
 </div>

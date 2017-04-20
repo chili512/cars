@@ -4,16 +4,17 @@ $this->headTitle($title);
 ?>
 
 <div class="jumbotron">
-	<h1><?php echo sprintf($this->translate('My Autos %s%d - %d%s'), '<span class="zf-green">',$firstYear,$currentyear, '</span>')?></h1>
-	<p>I have owned a number of cars (<?php echo $total;?>) over the last <?php echo $years;?> years. Some have been
-		very good, some not so.
-	</p>
+    <h1><?php echo sprintf($this->translate('My Autos %s%d - %d%s'), '<span class="zf-green">', $firstYear, $currentyear, '</span>') ?></h1>
+    <p>I have owned a number of cars (<?php echo $total; ?>) over the last <?php echo $years; ?> years. Some have been
+        very good, some not so.
+    </p>
 </div>
 
 <p>
-	<a href="<?php echo $this->url('cars', array('action'=>'add'));?>" data-toggle="modal" data-target="#custom" class="btn btn-default"
-		title="Enter the details of a new car"><span
-		class="glyphicon glyphicon-plus"></span>&nbsp;New Car!</a>
+    <a href="<?php echo $this->url('cars', array('action' => 'add')); ?>" data-toggle="modal" data-target="#custom"
+       class="btn btn-default"
+       title="Enter the details of a new car"><span
+                class="glyphicon glyphicon-plus"></span>&nbsp;New Car!</a>
 </p>
 <?php
 // The row
@@ -23,23 +24,24 @@ $index = 0;
 foreach ($this->cars as $car) {
     if ($row == 0) {
         ?>
-<div class="row">
-    <?php
+        <div class="row">
+        <?php
     }
-    ?>    
+    ?>
     <div class="col-md-4">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title"><?php echo $car->getModelYear().' '. $car->getMake() . ' '.$car->getModel()?></h3>
-			</div>
-			<div class="panel-body">
-			<a href="<?php echo $this->url('cars',array('action'=>'retrieve', 'id'=>$car->getId()));?>" title="View details about this car">
-				<img alt="<?php echo $car->getMake() . ' '.$car->getModel()?>"
-					src="<?php echo $this->basePath() . '/img/'.$car->getImage().'.jpg';?>"
-					title="<?php echo $car->getModelYear().' '. $car->getMake() . ' '.$car->getModel()?>" /></a>
-			</div>
-		</div>
-	</div>   
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?php echo $car->getModelYear() . ' ' . $car->getMake() . ' ' . $car->getModel() ?></h3>
+            </div>
+            <div class="panel-body">
+                <a href="<?php echo $this->url('cars', array('action' => 'retrieve', 'id' => $car->getId())); ?>"
+                   title="View details about this car">
+                    <img alt="<?php echo $car->getMake() . ' ' . $car->getModel() ?>"
+                         src="<?php echo $this->basePath() . '/img/' . $car->getImage() . '.jpg'; ?>"
+                         title="<?php echo $car->getModelYear() . ' ' . $car->getMake() . ' ' . $car->getModel() ?>"/></a>
+            </div>
+        </div>
+    </div>
     <?php
     if ($row == 2 || $index + 1 == $total) {
         ?></div><?php

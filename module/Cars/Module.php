@@ -26,9 +26,7 @@ class Module implements AutoloaderProviderInterface, ServiceProviderInterface
 {
 
     /**
-     * (non-PHPdoc)
-     *
-     * @see \Zend\ModuleManager\Feature\AutoloaderProviderInterface::getAutoloaderConfig()
+     * @return array
      */
     public function getAutoloaderConfig()
     {
@@ -47,6 +45,7 @@ class Module implements AutoloaderProviderInterface, ServiceProviderInterface
     }
 
     /**
+     * @return mixed
      */
     public function getConfig()
     {
@@ -54,8 +53,7 @@ class Module implements AutoloaderProviderInterface, ServiceProviderInterface
     }
 
     /**
-     *
-     * @param MvcEvent $e            
+     * @param MvcEvent $e
      */
     public function onBootstrap(MvcEvent $e)
     {
@@ -67,8 +65,7 @@ class Module implements AutoloaderProviderInterface, ServiceProviderInterface
     }
 
     /**
-     * 
-     * @return multitype:multitype:NULL  |\Application\Controller\IndexController|\Cars\Controller\ServiceController
+     * @return array
      */
     public function getControllerConfig()
     {
@@ -92,9 +89,7 @@ class Module implements AutoloaderProviderInterface, ServiceProviderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     *
-     * @see \Zend\ModuleManager\Feature\ServiceProviderInterface::getServiceConfig()
+     * @return array
      */
     public function getServiceConfig()
     {

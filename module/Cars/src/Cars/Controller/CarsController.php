@@ -6,11 +6,12 @@
  * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
+
 namespace Cars\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Cars\Form\NewCarForm;
+use Cars\Form\NewCarForm as NewCarForm;
 use Cars\Models\CarTable;
 use Cars\Entity\Automobile;
 use Cars\Models\ServiceTable;
@@ -19,7 +20,7 @@ use Cars\Models\ServiceTable;
  * Handles requests of the format /cars
  *
  * @author jon
- *        
+ *
  */
 class CarsController extends AbstractActionController
 {
@@ -31,22 +32,19 @@ class CarsController extends AbstractActionController
     private $_firstYear = 1979;
 
     /**
-     * A class that uses Doctrine ORM to interact with the database
-     *
      * @var CarTable
      */
     private $carTable;
 
     /**
-     * 
-     * 
-     * @var unknown
+     * @var ServiceTable
      */
     private $serviceTable;
 
     /**
-     * Constructor for the CarsController class.
-     * A PHP magic method
+     * CarsController constructor.
+     * @param CarTable $carTable
+     * @param ServiceTable $serviceTable
      */
     function __construct(CarTable $carTable, ServiceTable $serviceTable)
     {
@@ -57,15 +55,13 @@ class CarsController extends AbstractActionController
     }
 
     /**
-     * (non-PHPdoc) Index method displays a listing of cars
-     *
-     * @see \Zend\Mvc\Controller\AbstractActionController::indexAction()
+     * @return ViewModel
      */
     public function indexAction()
     {
         $allcars = $this->carTable->retrieveAll();
         $total = count($allcars);
-        
+
         return new ViewModel(array(
             'cars' => $allcars,
             'total' => $total,
@@ -76,38 +72,33 @@ class CarsController extends AbstractActionController
     }
 
     /**
-     * Opens a modal form to add a new car
-     *
-     * @return \Zend\View\Model\ViewModel
+     * @return ViewModel
      */
     public function addAction()
     {
         $transmissions = $this->carTable->transmissions();
         $bodyTypes = $this->carTable->bodyTypes();
         $makes = $this->carTable->manufacturers();
-        
+
         $form = new NewCarForm($makes, $transmissions, $bodyTypes);
-        
+
         $view = new ViewModel(array(
             'form' => $form
         ));
-        
+
         // Disable the templating to prevent showing in full page
         $view->setTerminal(true);
         return $view;
     }
 
     /**
-     * Processes the POST for saving a new car.
-     * Returns an updated list of cars
-     *
-     * @return \Zend\View\Model\ViewModel
+     * @return mixed
      */
     public function saveAction()
     {
         $request = $this->getRequest();
         if ($request->isPost()) {
-            
+
             $auto = new Automobile();
             $auto->BodyType = $_POST['bodytype'];
             $auto->Cost = $_POST['cost'];
@@ -121,15 +112,15 @@ class CarsController extends AbstractActionController
             $dt = new \DateTime($_POST['purchased']);
             $auto->Purchased = $dt;
             $auto->Transmission = $_POST['transmission'];
-            
+
             $this->addNewCarToDatastore($auto);
         }
-        
+
         return $this->redirect()->toRoute('cars');
     }
 
     /**
-     * Will handle the editing of a car
+     *
      */
     public function editAction()
     {
@@ -137,7 +128,7 @@ class CarsController extends AbstractActionController
     }
 
     /**
-     * Will likely not be used
+     *
      */
     public function deleteAction()
     {
@@ -145,10 +136,7 @@ class CarsController extends AbstractActionController
     }
 
     /**
-     * Retrieves information about the selected car.
-     * In ZF 2 use params collection to extract the querystring parameters
-     *
-     * @param int $id            
+     * @return \Zend\Http\Response|ViewModel
      */
     public function retrieveAction()
     {
@@ -156,39 +144,36 @@ class CarsController extends AbstractActionController
         if ($id == null) {
             return $this->redirect()->toRoute('cars');
         }
-        
+
         $car = $this->carTable->getAutomobile($id);
         $history = $this->serviceTable->retrieveHistorySingleCar($id);
         $count = count($history);
         $totalcost = $this->serviceTable->sumServiceCostForCar($id);
-        
+
         $view = new ViewModel(array(
             'car' => $car,
             'service' => $history,
             'count' => $count,
             'totalcost' => $totalcost
         ));
-        
+
         return $view;
     }
 
     /**
-     * Checks the datastore to determine what id the supplied model name represents.
-     * Returns the ID
-     *
-     * @param string $modelName            
-     * @return integer
+     * @param $modelName
+     * @return int
      */
     private function generateModelId($modelName)
     {
+        echo $modelName;
         $id = $this->carTable->getModelId($_POST['model']);
         return $id;
     }
 
     /**
-     * Persists to the database
-     *
-     * @param Automobile $auto            
+     * @param Automobile $auto
+     * @return string
      */
     private function addNewCarToDatastore(Automobile $auto)
     {

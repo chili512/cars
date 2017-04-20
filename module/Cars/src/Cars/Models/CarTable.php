@@ -13,18 +13,16 @@ use Cars\Entity\Model;
  */
 class CarTable
 {
-
     /**
      * The Doctrine entity manager
-     *
      * @var EntityManager
      */
     protected $em;
 
     /**
+     * CarTable constructor.
      * The entity manager is injected as a dependency
-     *
-     * @param EntityManager $em            
+     * @param EntityManager $em
      */
     function __construct(EntityManager $em)
     {
@@ -32,6 +30,7 @@ class CarTable
     }
 
     /**
+     *
      */
     function __destruct()
     {
@@ -40,8 +39,8 @@ class CarTable
 
     /**
      * Retrieves all cars using Doctrine query language
-     * http://doctrine-orm.readthedocs.org/en/latest/reference/dql-doctrine-query-language.html 
-     * 
+     * http://doctrine-orm.readthedocs.org/en/latest/reference/dql-doctrine-query-language.html
+     * @return mixed
      */
     public function retrieveAll()
     {
@@ -58,8 +57,7 @@ class CarTable
 
     /**
      * Gets the transmissions
-     *
-     * @return multitype:NULL
+     * @return array
      */
     public function transmissions()
     {
@@ -75,8 +73,7 @@ class CarTable
 
     /**
      * Get the body types
-     *
-     * @return multitype:NULL
+     * @return array
      */
     public function bodyTypes()
     {
@@ -92,8 +89,7 @@ class CarTable
 
     /**
      * A list of manufacturers
-     *
-     * @return multitype:NULL
+     * @return array
      */
     public function manufacturers()
     {
@@ -109,10 +105,9 @@ class CarTable
 
     /**
      * This function persists the object to the database.
-     * Code is based on 
+     * Code is based on
      * http://marco-pivetta.com/doctrine-orm-zf2-tutorial/#/28/1
-     * 
-     * @param Automobile $auto            
+     * @param Automobile $auto
      */
     public function save(Automobile $auto)
     {
@@ -124,8 +119,8 @@ class CarTable
 
     /**
      * Get the model ID using Doctrine query language
-     *
-     * @param string $name            
+     * @param $name
+     * @return int
      */
     public function getModelId($name)
     {
@@ -161,11 +156,11 @@ class CarTable
         
         return $id;
     }
-    
+
     /**
      * Retrieve a specific automobile by its primary key
-     * 
-     * @param unknown $id
+     * @param $id
+     * @return mixed
      */
     public function getAutomobile($id){
         
