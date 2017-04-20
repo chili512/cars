@@ -79,7 +79,7 @@ class ServiceController extends AbstractActionController
      */
     public function saveAction()
     {
-        $date = new \DateTime($_POST['date']);
+        $date = new \DateTime($_POST['servicedate']);
         $supplierId = (int)$_POST['supplierid'];
         $carId = (int)$_POST['carId'];
         $comments = $_POST['comments'];
