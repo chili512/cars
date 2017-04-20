@@ -38,6 +38,7 @@
     </div>
 </div>
 
+<div class="data">
 <div class="row">
     <div class="col-md-12">
         <?php if ($this->service == null) { ?>
@@ -45,7 +46,6 @@
                 <strong>No service history</strong>
             </p>
         <?php } else { ?>
-            <div id="data">
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
@@ -75,9 +75,8 @@
                     </tr>
                     </tfoot>
                 </table>
-            </div>
         <?php } ?>
-    </div>
+    </div></div>
 </div>
 <div>
     <a href="<?php echo $this->url('cars') ?>" title="View all cars"

@@ -32,7 +32,7 @@ class ServiceTable
     public function retrieveAll()
     {
         $query = $this->em->createQuery('SELECT sh.rid, sh.date, sh.carid, sh.comments, sh.odometer, s.name, sh.cost, sh.carid
-            FROM  ServiceHistory sh JOIN sh.suppliers s
+            FROM  Cars\Entity\ServiceHistory sh JOIN sh.suppliers s
             ORDER BY sh.date DESC');
 
         $serviceHistory = $query->getResult();
@@ -46,7 +46,7 @@ class ServiceTable
     public function retrieveHistorySingleCar($id)
     {
         $query = $this->em->createQuery('SELECT sh.rid, sh.date, sh.carid, sh.comments, sh.odometer, s.name, sh.cost
-            FROM  ServiceHistory sh JOIN sh.suppliers s
+            FROM  Cars\Entity\ServiceHistory sh JOIN sh.suppliers s
             WHERE sh.carid = :car ORDER BY sh.date DESC');
         $query->setParameter('car', $id, IntegerType::INTEGER);
         $serviceHistory = $query->getResult();
@@ -60,7 +60,7 @@ class ServiceTable
     public function sumServiceCostForCar($id)
     {
 
-        $query = $this->em->createQuery('SELECT SUM(s.cost) FROM ServiceHistory s WHERE s.carid = :car');
+        $query = $this->em->createQuery('SELECT SUM(s.cost) FROM Cars\Entity\ServiceHistory s WHERE s.carid = :car');
         $query->setParameter('car', $id);
         $result = $query->getResult();
         return (double)$result[0][1];
@@ -72,7 +72,7 @@ class ServiceTable
     public function sumAllServiceCosts()
     {
 
-        $query = $this->em->createQuery('SELECT SUM(s.cost) FROM ServiceHistory s');
+        $query = $this->em->createQuery('SELECT SUM(s.cost) FROM Cars\Entity\ServiceHistory s');
         $result = $query->getResult();
         return (double)$result[0][1];
     }
@@ -88,7 +88,9 @@ class ServiceTable
             $supplier = $this->getSupplier($supplierId);
             $serviceHistory->setSupplier($supplier);
             $this->save($serviceHistory);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            echo $message;
         }
     }
 

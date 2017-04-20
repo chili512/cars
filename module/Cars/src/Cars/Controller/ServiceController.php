@@ -94,14 +94,17 @@ class ServiceController extends AbstractActionController
         $serviceHistory->setDate($date);
         $serviceHistory->setInvoiceNumber($invoiceNumber);
         $serviceHistory->setOdometer($odometer);
+        //$serviceHistory->setSupplier($supplierId);
 
         try {
-            $this->serviceTable->add($serviceHistory, $supplierId);
+            //$this->serviceTable->add($serviceHistory, $supplierId);
         } catch (\Exception $e) {
-            echo 'A problem occurred ' . $e->getMessage();
+            //echo 'A problem occurred ' . $e->getMessage();
         }
 
-        return $this->retrieveServiceForCar($carId);
+        $view = $this->retrieveServiceForCar($carId);
+        $view->setTemplate('cars/service/retrieve.phtml');
+        return $view;
     }
 
     /**
