@@ -1,4 +1,5 @@
 <?php
+
 namespace Cars\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,9 +10,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  *
  * @author jonathan
- *        
- *         @ORM\Entity
- *         @ORM\Table(name="Suppliers")        
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="Suppliers")
  */
 class Suppliers
 {

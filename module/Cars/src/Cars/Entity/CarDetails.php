@@ -1,4 +1,5 @@
 <?php
+
 namespace Cars\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * A single car
  *
  * @author jon
- *        
- *         @ORM\Entity
- *         @ORM\Table(name="CarDetail")
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="CarDetail")
  * @property string $transmissionType
  * @property string $license
  * @property date $purchased
@@ -139,9 +140,9 @@ class CarDetails
     }
 
     public function getCost()
-    {        
+    {
         return $this->cost;
-    }       
+    }
 
     public function getModel()
     {

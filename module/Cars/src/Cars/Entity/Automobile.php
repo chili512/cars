@@ -1,4 +1,5 @@
 <?php
+
 namespace Cars\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,9 +10,9 @@ use Zend\InputFilter\InputFilterAwareInterface;
  * A car
  *
  * @author jon
- *        
- *         @ORM\Entity
- *         @ORM\Table(name="Autos")
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="Autos")
  * @property integer $Id
  * @property integer $Make
  * @property integer $Model
@@ -100,7 +101,7 @@ class Automobile implements InputFilterAwareInterface
     /**
      * Magic getter to expose protected properties
      *
-     * @param string $property            
+     * @param string $property
      * @return mixed
      */
     public function __get($property)
@@ -112,8 +113,8 @@ class Automobile implements InputFilterAwareInterface
      * Magic setter to save protected properties
      *
      *
-     * @param string $property            
-     * @param mixed $value            
+     * @param string $property
+     * @param mixed $value
      */
     public function __set($property, $value)
     {
@@ -133,7 +134,7 @@ class Automobile implements InputFilterAwareInterface
     /**
      * Populate from an array
      *
-     * @param array $data            
+     * @param array $data
      */
     public function exchangeArray($data = array())
     {
@@ -149,7 +150,7 @@ class Automobile implements InputFilterAwareInterface
         $this->Purchased = $data['purchased'];
         $this->Transmission = $data['transmission'];
     }
-    
+
     /*
      * (non-PHPdoc)
      * @see \Zend\InputFilter\InputFilterAwareInterface::setInputFilter()
@@ -158,7 +159,7 @@ class Automobile implements InputFilterAwareInterface
     {
         throw new \Exception("Not used");
     }
-    
+
     /*
      * (non-PHPdoc)
      * @see \Zend\InputFilter\InputFilterAwareInterface::getInputFilter()

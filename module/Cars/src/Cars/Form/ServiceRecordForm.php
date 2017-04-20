@@ -36,7 +36,7 @@ class ServiceRecordForm extends Form
                 'class' => 'form-control',
                 'id' => 'servicedate',
                 'title' => 'Select a date',
-                'name'=>'servicedate'
+                'name' => 'servicedate'
             ),
             'options' => array(
                 'label' => 'Date'

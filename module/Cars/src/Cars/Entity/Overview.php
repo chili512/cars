@@ -1,4 +1,5 @@
 <?php
+
 namespace Cars\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,9 +10,9 @@ use Zend\InputFilter\InputFilterAwareInterface;
 /**
  *
  * @author jon
- *        
- *         @ORM\Entity
- *         @ORM\Table(name="AutosOverview")
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="AutosOverview")
  * @property integer $id
  * @property string $make
  * @property string $model
@@ -98,7 +99,7 @@ class Overview implements InputFilterAwareInterface
     }
 
     /**
-     * 
+     *
      * @return \Cars\Entity\The
      */
     public function getId()
@@ -109,8 +110,8 @@ class Overview implements InputFilterAwareInterface
     /**
      * Magic setter to save protected properties.
      *
-     * @param string $property            
-     * @param mixed $value            
+     * @param string $property
+     * @param mixed $value
      */
     public function __set($property, $value)
     {
@@ -130,7 +131,7 @@ class Overview implements InputFilterAwareInterface
     /**
      * Populate from an array.
      *
-     * @param array $data            
+     * @param array $data
      */
     public function populate($data = array())
     {
@@ -140,6 +141,7 @@ class Overview implements InputFilterAwareInterface
         $this->image = $data['image'];
         $this->modelyear = $data['modelyear'];
     }
+
     /*
      * (non-PHPdoc)
      * @see \Zend\InputFilter\InputFilterAwareInterface::setInputFilter()
@@ -148,19 +150,19 @@ class Overview implements InputFilterAwareInterface
     {
         // TODO Auto-generated method stub
     }
-    
+
     /*
      * (non-PHPdoc)
      * @see \Zend\InputFilter\InputFilterAwareInterface::getInputFilter()
      */
     public function getInputFilter()
     {
-        if (! $this->inputFilter) {
-            
+        if (!$this->inputFilter) {
+
             $inputFilter = new InputFilter();
-            
+
             $factory = new InputFactory();
-            
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'id',
                 'required' => true,
@@ -170,7 +172,7 @@ class Overview implements InputFilterAwareInterface
                     )
                 )
             )));
-            
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'make',
                 'required' => true,
@@ -193,7 +195,7 @@ class Overview implements InputFilterAwareInterface
                     )
                 )
             )));
-            
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'model',
                 'required' => true,
@@ -216,7 +218,7 @@ class Overview implements InputFilterAwareInterface
                     )
                 )
             )));
-            
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'image',
                 'required' => true,
@@ -226,10 +228,10 @@ class Overview implements InputFilterAwareInterface
                     )
                 )
             )));
-            
+
             $this->inputFilter = $inputFilter;
         }
-        
+
         return $this->inputFilter;
     }
 }

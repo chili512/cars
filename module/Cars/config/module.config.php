@@ -1,11 +1,12 @@
 <?php
+
 namespace Cars;
 
 // http://www.zfdaily.com/2012/07/getting-dependencies-into-zf2-controllers/
 
 return array( // Note the plurality
     'controllers' => array(
-        'factories'=>array()
+        'factories' => array()
     ),
     'router' => array(
         'routes' => array(
@@ -25,7 +26,7 @@ return array( // Note the plurality
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    
+
                     // This route is a sane default when developing a module;
                     // as you solidify the routes for your module, however,
                     // you may want to remove it and replace it with more
@@ -59,7 +60,7 @@ return array( // Note the plurality
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    
+
                     // This route is a sane default when developing a module;
                     // as you solidify the routes for your module, however,
                     // you may want to remove it and replace it with more

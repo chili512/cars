@@ -27,7 +27,7 @@ class NewCarForm extends Form
             ->setAttribute('enctype', 'multipart/form-data')
             ->setAttribute('class', 'form-horizontal')
             ->setAttribute('action', 'save')
-            ->setAttribute('id', $rand)
+            ->setAttribute('id', 'form' . $rand)
             ->setAttribute('role', 'form');
 
         // License
