@@ -95,7 +95,7 @@
             event.preventDefault();
             var cost = Math.round(parseFloat($('#cost').val()) * 100) / 100;
             $.ajax({
-                url: '<?php echo $this->url('service', array('action' => 'save'))?>',
+                url: '<?php echo $this->url('service', array('controller' => 'service', 'action' => 'save'));?>',
                 dataType: 'html',
                 cache: false,
                 data: {
