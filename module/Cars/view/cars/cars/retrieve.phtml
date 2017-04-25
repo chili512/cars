@@ -39,13 +39,13 @@
 </div>
 
 <div id="data">
-<div class="row">
-    <div class="col-md-12">
-        <?php if ($this->service == null) { ?>
-            <p>
-                <strong>No service history</strong>
-            </p>
-        <?php } else { ?>
+    <div class="row">
+        <div class="col-md-12">
+            <?php if ($this->service == null) { ?>
+                <p>
+                    <strong>No service history</strong>
+                </p>
+            <?php } else { ?>
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
@@ -75,15 +75,16 @@
                     </tr>
                     </tfoot>
                 </table>
-        <?php } ?>
-    </div></div>
+            <?php } ?>
+        </div>
+    </div>
 </div>
 <div>
     <a href="<?php echo $this->url('cars') ?>" title="View all cars"
        class="btn btn-default">View all cars</a>
 </div>
 <script type="text/javascript">
-	function closeModal(){
-		$('#custom').modal('hide');
-	}
+    function closeModal() {
+        $('#custom').modal('hide');
+    }
 </script>

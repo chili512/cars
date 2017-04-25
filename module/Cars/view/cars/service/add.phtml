@@ -71,28 +71,26 @@
 
         var formName = $('form')[0].id;
         console.log(formName);
-		console.log('wiring up validator');
+        console.log('wiring up validator');
         formValidator = $('#' + formName).validate(
             {
                 rules: {
                     odometer: {required: true, number: true},
                     comments: {required: true},
-                    //servicedate: {required: true},
                     cost: {required: true, number: true},
                     invoicenumber: {required: true}
                 },
                 messages: {
-                    odometer: 'A valid $ amount is required',
+                    odometer: 'A valid odometer value is required',
                     comments: 'A description is required',
-                    //date: 'A valid date is required',
                     invoicenumber: 'An invoice number is required or NA',
                     cost: 'A $ value for the cost is required'
                 },
                 debug: true
             }
         );
-        
-        console.log('wiring up form for '+formName);
+
+        console.log('wiring up form for ' + formName);
         $('#' + formName).submit(function (event) {
             event.preventDefault();
             console.log('in the guts');
@@ -104,7 +102,7 @@
             var odo = $('#odometer').val();
             var carId = $('#cardId').val();
             console.log(cost, serviceDate, comments, supplierId, invoice, odo);
-            
+
             $.ajax({
                 url: '<?php echo $this->url('service', array('controller' => 'service', 'action' => 'save'));?>',
                 dataType: 'html',
@@ -116,7 +114,7 @@
                     'cost': cost,
                     'invoicenumber': invoice,
                     'odometer': odo,
-                    'carId':carId
+                    'carId': carId
                 },
                 complete: function () {
                     window.closeModal();
@@ -132,7 +130,7 @@
                     console.log(a, b, c)
                 },
                 success: function (data) {
-                   
+
                     $('#data').html(data);
                 },
                 type: 'post'

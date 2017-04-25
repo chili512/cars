@@ -1,4 +1,5 @@
 <?php
+
 namespace Cars\Form;
 
 use Zend\Form\Form;
@@ -16,7 +17,7 @@ class ServiceRecordForm extends Form
             ->setAttribute('class', 'form-horizontal')
             ->setAttribute('id', 'form' . $rand)
             ->setAttribute('role', 'form');
-        
+
         $this->add(array(
             'name' => 'carId',
             'type' => 'Zend\Form\Element\Hidden',
@@ -25,7 +26,7 @@ class ServiceRecordForm extends Form
                 'id' => 'cardId'
             )
         ));
-        
+
         $this->add(array(
             'name' => 'date',
             'type' => 'Zend\Form\Element\Text',
@@ -41,7 +42,7 @@ class ServiceRecordForm extends Form
                 'label' => 'Date'
             )
         ));
-        
+
         $this->add(array(
             'name' => 'cost',
             'type' => 'Zend\Form\Element\Text',
@@ -58,7 +59,7 @@ class ServiceRecordForm extends Form
                 'label' => 'Cost'
             )
         ));
-        
+
         $this->add(array(
             'name' => 'comments',
             'attributes' => array(
@@ -75,7 +76,7 @@ class ServiceRecordForm extends Form
             ),
             'type' => 'Zend\Form\Element\Textarea'
         ));
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'supplierid',
@@ -90,7 +91,7 @@ class ServiceRecordForm extends Form
                 'value_options' => $suppliers
             )
         ));
-        
+
         $this->add(array(
             'name' => 'invoicenumber',
             'type' => 'Zend\Form\Element\Text',
@@ -108,7 +109,7 @@ class ServiceRecordForm extends Form
                 'label' => 'Invoice'
             )
         ));
-        
+
         $this->add(array(
             'name' => 'odometer',
             'type' => 'Zend\Form\Element\Text',
