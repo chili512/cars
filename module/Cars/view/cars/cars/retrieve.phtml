@@ -38,7 +38,7 @@
     </div>
 </div>
 
-<div class="data">
+<div id="data">
 <div class="row">
     <div class="col-md-12">
         <?php if ($this->service == null) { ?>
@@ -82,3 +82,8 @@
     <a href="<?php echo $this->url('cars') ?>" title="View all cars"
        class="btn btn-default">View all cars</a>
 </div>
+<script type="text/javascript">
+	function closeModal(){
+		$('#custom').modal('hide');
+	}
+</script>

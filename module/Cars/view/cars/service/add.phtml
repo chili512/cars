@@ -70,55 +70,69 @@
         });
 
         var formName = $('form')[0].id;
-
-        formValidator = $('#form' + formName).validate(
+        console.log(formName);
+		console.log('wiring up validator');
+        formValidator = $('#' + formName).validate(
             {
                 rules: {
                     odometer: {required: true, number: true},
                     comments: {required: true},
-                    servicedate: {date: true, required: true},
+                    //servicedate: {required: true},
                     cost: {required: true, number: true},
                     invoicenumber: {required: true}
                 },
                 messages: {
                     odometer: 'A valid $ amount is required',
                     comments: 'A description is required',
-                    date: 'A valid date is required',
+                    //date: 'A valid date is required',
                     invoicenumber: 'An invoice number is required or NA',
                     cost: 'A $ value for the cost is required'
                 },
                 debug: true
             }
         );
-
-        $('#form' + formName).submit(function (event) {
+        
+        console.log('wiring up form for '+formName);
+        $('#' + formName).submit(function (event) {
             event.preventDefault();
+            console.log('in the guts');
             var cost = Math.round(parseFloat($('#cost').val()) * 100) / 100;
+            var serviceDate = $('#servicedate').val();
+            var comments = $('#comments').val();
+            var supplierId = $('#supplierId option:selected').val();
+            var invoice = $('#invoiceNumber').val();
+            var odo = $('#odometer').val();
+            var carId = $('#cardId').val();
+            console.log(cost, serviceDate, comments, supplierId, invoice, odo);
+            
             $.ajax({
                 url: '<?php echo $this->url('service', array('controller' => 'service', 'action' => 'save'));?>',
                 dataType: 'html',
                 cache: false,
                 data: {
-                    servicedate: $('#servicedate').val(),
-                    comments: $('#comments').val(),
-                    supplierid: $('#supplierid option:selected').val(),
-                    cost: cost,
-                    invoicenumber: $('#invoicenumber').val(),
-                    odometer: $('#odometer').val()
+                    'servicedate': serviceDate,
+                    'comments': comments,
+                    'supplierid': supplierId,
+                    'cost': cost,
+                    'invoicenumber': invoice,
+                    'odometer': odo,
+                    'carId':carId
                 },
                 complete: function () {
-                    window.close();
+                    window.closeModal();
                     formValidator.destroy();
                     console.log('complete');
                 },
                 beforeSend: function () {
                     console.log('Submit');
+                    $('#data').html('');
                     return formValidator.valid();
                 },
                 error: function (a, b, c) {
                     console.log(a, b, c)
                 },
                 success: function (data) {
+                   
                     $('#data').html(data);
                 },
                 type: 'post'
