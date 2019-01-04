@@ -1,14 +1,13 @@
 <?php
+
 namespace Cars\Entity;
 
 class MyCars
 {
-    // TODO - Insert your code here
     protected $em;
 
     /**
-     *
-     * @param EntityManager $em            
+     * MyCars constructor.
      */
     function __construct()
     {
@@ -16,6 +15,7 @@ class MyCars
     }
 
     /**
+     *
      */
     function __destruct()
     {
@@ -23,7 +23,7 @@ class MyCars
     }
 
     /**
-     * Retrieves all cars
+     * @return mixed
      */
     public function retrieveAll()
     {

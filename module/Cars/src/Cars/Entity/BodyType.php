@@ -1,4 +1,5 @@
 <?php
+
 namespace Cars\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -19,7 +20,7 @@ use Zend\InputFilter\InputFilterAwareInterface;
 class BodyType implements InputFilterAwareInterface
 {
     protected $inputFilter;
-    
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -28,30 +29,32 @@ class BodyType implements InputFilterAwareInterface
      * @var A primary key
      */
     private $id;
-    
+
     /**
      * @ORM\Column(type="string")
      *
      * @var The type of body
      */
     private $name;
-    
+
     /**
-     * 
+     *
      * @return \Cars\Entity\A
      */
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
-    
+
     /**
-     * 
+     *
      * @return \Cars\Entity\The
      */
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
-    
+
     /**
      * Magic setter
      *
@@ -62,7 +65,7 @@ class BodyType implements InputFilterAwareInterface
     {
         $this->$property = $value;
     }
-    
+
     /**
      * Convert an object to an array
      *
@@ -72,7 +75,7 @@ class BodyType implements InputFilterAwareInterface
     {
         return get_object_vars($this);
     }
-    
+
     /**
      * Populate from an array
      *
@@ -83,7 +86,7 @@ class BodyType implements InputFilterAwareInterface
         $this->id = $data['id'];
         $this->name = $data['name'];
     }
-    
+
     /*
      * (non-PHPdoc)
      * @see \Zend\InputFilter\InputFilterAwareInterface::setInputFilter()
@@ -93,7 +96,7 @@ class BodyType implements InputFilterAwareInterface
         // TODO Auto-generated method stub
         return;
     }
-    
+
     /**
      * (non-PHPdoc)
      *
@@ -101,10 +104,10 @@ class BodyType implements InputFilterAwareInterface
      */
     public function getInputFilter()
     {
-        if (! $this->inputFilter) {
+        if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
             $factory = new InputFactory();
-    
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'id',
                 'required' => true,
@@ -137,7 +140,7 @@ class BodyType implements InputFilterAwareInterface
                 )
             )));
         }
-    
+
         return $this->inputFilter;
     }
 }

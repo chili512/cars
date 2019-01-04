@@ -6,6 +6,7 @@
  * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
+
 namespace Cars;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
@@ -20,15 +21,13 @@ use Cars\Controller\CarsController;
 /**
  *
  * @author jon
- *        
+ *
  */
 class Module implements AutoloaderProviderInterface, ServiceProviderInterface
 {
 
     /**
-     * (non-PHPdoc)
-     *
-     * @see \Zend\ModuleManager\Feature\AutoloaderProviderInterface::getAutoloaderConfig()
+     * @return array
      */
     public function getAutoloaderConfig()
     {
@@ -38,7 +37,7 @@ class Module implements AutoloaderProviderInterface, ServiceProviderInterface
             ),
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
-                    
+
                     // if we're in a namespace deeper than one level we need to fix the \ in the path
                     __NAMESPACE__ => __DIR__ . '/src/' . str_replace('\\', '/', __NAMESPACE__)
                 )
@@ -47,6 +46,7 @@ class Module implements AutoloaderProviderInterface, ServiceProviderInterface
     }
 
     /**
+     * @return mixed
      */
     public function getConfig()
     {
@@ -54,8 +54,7 @@ class Module implements AutoloaderProviderInterface, ServiceProviderInterface
     }
 
     /**
-     *
-     * @param MvcEvent $e            
+     * @param MvcEvent $e
      */
     public function onBootstrap(MvcEvent $e)
     {
@@ -67,8 +66,7 @@ class Module implements AutoloaderProviderInterface, ServiceProviderInterface
     }
 
     /**
-     * 
-     * @return multitype:multitype:NULL  |\Application\Controller\IndexController|\Cars\Controller\ServiceController
+     * @return array
      */
     public function getControllerConfig()
     {
@@ -80,7 +78,7 @@ class Module implements AutoloaderProviderInterface, ServiceProviderInterface
                     $controller = new ServiceController($serviceTable);
                     return $controller;
                 },
-                'Cars\Controller\Cars'=>function($sm){
+                'Cars\Controller\Cars' => function ($sm) {
                     $locator = $sm->getServiceLocator();
                     $serviceTable = $locator->get('Cars\Models\ServiceTable');
                     $carTable = $locator->get('Cars\Models\CarTable');
@@ -92,9 +90,7 @@ class Module implements AutoloaderProviderInterface, ServiceProviderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     *
-     * @see \Zend\ModuleManager\Feature\ServiceProviderInterface::getServiceConfig()
+     * @return array
      */
     public function getServiceConfig()
     {

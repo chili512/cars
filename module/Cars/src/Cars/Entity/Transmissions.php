@@ -1,4 +1,5 @@
 <?php
+
 namespace Cars\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +15,7 @@ use Zend\InputFilter\InputFilterAwareInterface;
  * @property string $transmissionType
  *
  * @author jon
- *        
+ *
  */
 class Transmissions implements InputFilterAwareInterface
 {
@@ -36,28 +37,30 @@ class Transmissions implements InputFilterAwareInterface
      * @var The type of transmission
      */
     private $transmissionType;
-    
+
     /**
      *
      * @return \Cars\Entity\A
      */
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
-    
+
     /**
      *
      * @return \Cars\Entity\The
      */
-    public function getTransmissionType(){
+    public function getTransmissionType()
+    {
         return $this->transmissionType;
     }
 
     /**
      * Magic setter
      *
-     * @param string $property            
-     * @param mixed $value            
+     * @param string $property
+     * @param mixed $value
      */
     public function __set($property, $value)
     {
@@ -77,14 +80,14 @@ class Transmissions implements InputFilterAwareInterface
     /**
      * Populate from an array
      *
-     * @param unknown $data            
+     * @param unknown $data
      */
     public function populate($data = array())
     {
         $this->id = $data['id'];
         $this->transmissionType = $data['transmissionType'];
     }
-    
+
     /*
      * (non-PHPdoc)
      * @see \Zend\InputFilter\InputFilterAwareInterface::setInputFilter()
@@ -97,15 +100,15 @@ class Transmissions implements InputFilterAwareInterface
 
     /**
      * (non-PHPdoc)
-     * 
+     *
      * @see \Zend\InputFilter\InputFilterAwareInterface::getInputFilter()
      */
     public function getInputFilter()
     {
-        if (! $this->inputFilter) {
+        if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
             $factory = new InputFactory();
-            
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'id',
                 'required' => true,
@@ -138,7 +141,7 @@ class Transmissions implements InputFilterAwareInterface
                 )
             )));
         }
-        
+
         return $this->inputFilter;
     }
 }

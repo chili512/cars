@@ -1,4 +1,5 @@
 <?php
+
 namespace Cars\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -13,10 +14,10 @@ use Zend\Db\Sql\Ddl\Column\Integer;
 /**
  *
  * @author jonathan
- *        
- *         @ORM\Entity
- *         @ORM\Table(name="ServiceHistory")
- *        
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="ServiceHistory")
+ *
  */
 class ServiceHistory implements InputFilterAwareInterface
 {
@@ -24,13 +25,14 @@ class ServiceHistory implements InputFilterAwareInterface
     protected $inputFilter;
 
     public function __construct()
-    {}
+    {
+    }
 
     /**
      * @ORM\Id
      * @ORM\Column(type="integer", name="rid", nullable=false)
      * @ORM\GeneratedValue(strategy="AUTO")
-     * 
+     *
      * @var int
      */
     protected $rid;
@@ -176,11 +178,11 @@ class ServiceHistory implements InputFilterAwareInterface
      */
     public function setInputFilter(\Zend\InputFilter\InputFilterInterface $inputFilter)
     {
-        if (! $this->inputFilter) {
-            
+        if (!$this->inputFilter) {
+
             $this->inputFilter = new InputFilter();
             $factory = new InputFactory();
-            
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'Comments',
                 'required' => true,
@@ -193,7 +195,7 @@ class ServiceHistory implements InputFilterAwareInterface
                     )
                 )
             )));
-            
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'SupplierId',
                 'required' => true,
@@ -201,7 +203,7 @@ class ServiceHistory implements InputFilterAwareInterface
                     'name' => 'int'
                 )
             )));
-            
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'Date',
                 'required' => true,
@@ -209,7 +211,7 @@ class ServiceHistory implements InputFilterAwareInterface
                     'name' => 'date'
                 )
             )));
-            
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'CarId',
                 'required' => true,
@@ -217,7 +219,7 @@ class ServiceHistory implements InputFilterAwareInterface
                     'name' => 'int'
                 )
             )));
-            
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'InvoiceNumber',
                 'required' => true,
@@ -230,7 +232,7 @@ class ServiceHistory implements InputFilterAwareInterface
                     )
                 )
             )));
-            
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'Cost',
                 'required' => true,
@@ -244,7 +246,7 @@ class ServiceHistory implements InputFilterAwareInterface
     /**
      * Takes an array and assigns elements to this properties
      *
-     * @param array $data            
+     * @param array $data
      */
     public function populate($data = array())
     {
@@ -261,8 +263,8 @@ class ServiceHistory implements InputFilterAwareInterface
     /**
      * Magic setter to save protected properties.
      *
-     * @param string $property            
-     * @param mixed $value            
+     * @param string $property
+     * @param mixed $value
      */
     public function __set($property, $value)
     {
@@ -272,7 +274,7 @@ class ServiceHistory implements InputFilterAwareInterface
     /**
      * Magic getter to expose protected properties.
      *
-     * @param string $property            
+     * @param string $property
      * @return mixed
      */
     public function __get($property)

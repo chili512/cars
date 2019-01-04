@@ -1,4 +1,5 @@
 <?php
+
 namespace Cars\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -14,12 +15,12 @@ use Zend\InputFilter\InputFilterAwareInterface;
  * @property string $name
  *
  * @author jon
- *        
+ *
  */
 class Model implements InputFilterAwareInterface
 {
     /**
-     * 
+     *
      * @var unknown
      */
     protected $inputFilter;
@@ -31,28 +32,30 @@ class Model implements InputFilterAwareInterface
      *
      * @var A primary key
      */
-    private  $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string")
      *
      * @var The type of body
      */
-    private  $name;
-    
-    public function SetName($name){
+    private $name;
+
+    public function SetName($name)
+    {
         $this->name = $name;
     }
-    
-    public function GetId(){
+
+    public function GetId()
+    {
         return $this->id;
     }
 
     /**
      * Magic setter
      *
-     * @param string $property            
-     * @param mixed $value            
+     * @param string $property
+     * @param mixed $value
      */
     public function __set($property, $value)
     {
@@ -72,14 +75,14 @@ class Model implements InputFilterAwareInterface
     /**
      * Populate from an array
      *
-     * @param unknown $data            
+     * @param unknown $data
      */
     public function populate($data = array())
     {
         $this->id = $data['id'];
         $this->name = $data['name'];
     }
-    
+
     /*
      * (non-PHPdoc)
      * @see \Zend\InputFilter\InputFilterAwareInterface::setInputFilter()
@@ -97,10 +100,10 @@ class Model implements InputFilterAwareInterface
      */
     public function getInputFilter()
     {
-        if (! $this->inputFilter) {
+        if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
             $factory = new InputFactory();
-            
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'id',
                 'required' => true,
@@ -133,7 +136,7 @@ class Model implements InputFilterAwareInterface
                 )
             )));
         }
-        
+
         return $this->inputFilter;
     }
 }

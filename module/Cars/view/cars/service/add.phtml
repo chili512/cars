@@ -1,70 +1,144 @@
-
 <div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal"
-		title="close window">
-		<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-	</button>
-	<h2 id="myModalLabel" class="modal-title">Add Service Record</h2>
+    <button type="button" class="close" data-dismiss="modal"
+            title="close window">
+        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+    </button>
+    <h2 id="myModalLabel" class="modal-title">Add Service Record</h2>
 
-	<div class="modal-body">
+    <div class="modal-body">
 
-		<?php $form = $this->form;?>
-		<?php $form->setAttribute('action', $this->url('service',array('controller'=>'service', 'action'=>'save')));?>
-		<?php $form->prepare();?>
-		<?php echo $this->form()->openTag($form);?>
-		
-		<div class="form-group">
-			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('date'))?></div>
-			<div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('date'))?></div>
-		</div>
+        <?php $form = $this->form; ?>
+        <?php $form->setAttribute('action', $this->url('service', array('controller' => 'service', 'action' => 'save'))); ?>
+        <?php $form->prepare(); ?>
+        <?php echo $this->form()->openTag($form); ?>
 
-		<div class="form-group">
-			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('supplierid'))?></div>
-			<div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('supplierid'))?></div>
-		</div>
+        <div class="form-group">
+            <div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('servicedate')) ?></div>
+            <div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('servicedate')) ?></div>
+        </div>
 
-		<div class="form-group">
-			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('comments'))?></div>
-			<div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('comments'))?></div>
-		</div>
+        <div class="form-group">
+            <div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('supplierid')) ?></div>
+            <div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('supplierid')) ?></div>
+        </div>
 
-		<div class="form-group">
-			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('cost'))?></div>
-			<div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('cost'))?></div>
-		</div>
+        <div class="form-group">
+            <div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('comments')) ?></div>
+            <div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('comments')) ?></div>
+        </div>
 
-		<div class="form-group">
-			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('invoicenumber'))?></div>
-			<div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('invoicenumber'))?></div>
-		</div>
+        <div class="form-group">
+            <div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('cost')) ?></div>
+            <div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('cost')) ?></div>
+        </div>
 
-		<div class="form-group">
-			<div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('odometer'))?></div>
-			<div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('odometer'))?></div>
-		</div>
+        <div class="form-group">
+            <div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('invoicenumber')) ?></div>
+            <div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('invoicenumber')) ?></div>
+        </div>
 
-		<div class="modal-footer">
-			<button type="button" class="btn btn-primary" data-dismiss="modal"
-				title="Close this window">
-				<span class="glyphicon glyphicon-remove"></span>&nbsp;Close
-			</button>
-			<button type="submit" class="btn btn-primary" title="Save changes">
-				<span class="glyphicon glyphicon-save"></span>&nbsp;Save
-			</button>
-			<?php echo $this->formelement($form->get('carId'))?>
-		</div>
-		
-		<?php echo $this->form()->closeTag(); ?>
-	</div>
+        <div class="form-group">
+            <div class="col-md-3 control-label"><?php echo $this->formlabel($form->get('odometer')) ?></div>
+            <div class="col-md-9 editor-field"><?php echo $this->formelement($form->get('odometer')) ?></div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    title="Close this window">
+                <span class="glyphicon glyphicon-remove"></span>&nbsp;Close
+            </button>
+            <button type="submit" class="btn btn-primary" title="Save changes" id="save-button">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;Save
+            </button>
+            <?php echo $this->formelement($form->get('carId')) ?>
+        </div>
+
+        <?php echo $this->form()->closeTag(); ?>
+    </div>
 </div>
+
 <script type="text/javascript">
-$(document).ready(function(){
-	var now = new Date();
-	$('#servicedate').datepicker({
-		'format': 'yyyy/mm/dd',
-    	'default': now,
-    	'max': now,
-    	culture: 'en-AU'    	    	
-	});
-});
+
+
+    $(document).ready(function () {
+        var now = new Date();
+        $('#servicedate').datepicker({
+            'format': 'yyyy/mm/dd',
+            'default': now,
+            'max': now,
+            culture: 'en-AU'
+        });
+
+        var formName = $('form')[0].id;
+        console.log(formName);
+        console.log('wiring up validator');
+        formValidator = $('#' + formName).validate(
+            {
+                rules: {
+                    odometer: {required: true, number: true},
+                    comments: {required: true},
+                    cost: {required: true, number: true},
+                    invoicenumber: {required: true}
+                },
+                messages: {
+                    odometer: 'A valid odometer value is required',
+                    comments: 'A description is required',
+                    invoicenumber: 'An invoice number is required or NA',
+                    cost: 'A $ value for the cost is required'
+                },
+                debug: true
+            }
+        );
+
+        console.log('wiring up form for ' + formName);
+        $('#' + formName).submit(function (event) {
+            event.preventDefault();
+            console.log('in the guts');
+            var cost = Math.round(parseFloat($('#cost').val()) * 100) / 100;
+            var serviceDate = $('#servicedate').val();
+            var comments = $('#comments').val();
+            var supplierId = $('#supplierId option:selected').val();
+            var invoice = $('#invoiceNumber').val();
+            var odo = $('#odometer').val();
+            var carId = $('#cardId').val();
+            console.log(cost, serviceDate, comments, supplierId, invoice, odo);
+
+            $.ajax({
+                url: '<?php echo $this->url('service', array('controller' => 'service', 'action' => 'save'));?>',
+                dataType: 'html',
+                cache: false,
+                data: {
+                    'servicedate': serviceDate,
+                    'comments': comments,
+                    'supplierid': supplierId,
+                    'cost': cost,
+                    'invoicenumber': invoice,
+                    'odometer': odo,
+                    'carId': carId
+                },
+                complete: function () {
+                    window.closeModal();
+                    formValidator.destroy();
+                    console.log('complete');
+                },
+                beforeSend: function () {
+                    console.log('Submit');
+                    $('#data').html('');
+                    return formValidator.valid();
+                },
+                error: function (a, b, c) {
+                    console.log(a, b, c)
+                },
+                success: function (data) {
+
+                    $('#data').html(data);
+                },
+                type: 'post'
+            })
+        })
+
+        $('#save-button').click(function () {
+            console.log('submit form');
+        })
+    });
 </script>
